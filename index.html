@@ -25,15 +25,174 @@
     <script>window.location.href = 'upgrade-browser.html';</script>
     <![endif]-->
     <link href="css/sweetalert2.min.css" rel="stylesheet">
-    <script type="text/javascript" src="js/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-paginator.js"></script>
 
+    <script type="text/javascript" src="js/sweetalert2.all.min.js"></script>
     <script>
         let urlBase = "http://localhost:30004"
-        let urlProject = "/graduation-project-roger-authority"
+        let urlProjectAuthority = "/graduation-project-roger-authority"
+        let urlProjectArticle = "/graduation-project-roger-article"
         let urlLogin = "/authority/login"
+        let urlSelArticleType = "/article/home/selArticleType"
+        let urlSelLatestArticle = "/article/home/selLatestArticle"
+        let urlSelHotArticle = "/article/home/selHotArticle"
+        let urlSelDailyRecommendation = "/article/home/selDailyRecommendation"
+        let urlSelDailySentence = "/article/home/selDailySentence"
 
+        function drawingLatestArticleDatas(ul,list){
+            //生成分页
+            let html = ""
+            list.forEach((item, index, array) => {
+                html += "<article class=\"excerpt excerpt-1\">\n" +
+                    "                <a class=\"focus\" href=\"article.html\" title=\"\">\n" +
+                    "                    <img class=\"thumb\" data-original=\"images/excerpt.jpg\" src=" + item.imageUrl + " alt=\"\"></a>\n" +
+                    "                <header><a class=\"cat\" href=\"program\">后端程序<i></i></a>\n" +
+                    "                    <h2><a href=\"article.html\" title=\"\">" + item.title + "</a></h2>\n" +
+                    "                </header>\n" +
+                    "                <p class=\"meta\">\n" +
+                    "                    <time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i> " + item.time + "</time>\n" +
+                    "                    <span class=\"views\"><i class=\"glyphicon glyphicon-eye-open\"></i> 共" + item.viewingTimes + "人围观</span> <a class=\"comment\"\n" +
+                    "                                                                                                       href=\"article.html#comment\"><i\n" +
+                    "                        class=\"glyphicon glyphicon-comment\"></i> 0个不明物体</a></p>\n" +
+                    "                <p class=\"note\">\n" +
+                    "                    " + item.description + " </p>\n" +
+                    "            </article>";
+            })
+            ul.html(html);
+        }
+
+        function setLatestArticleBootstrapPaginator(paging,currentPage, totalPages,pageSize) {
+            paging.bootstrapPaginator({//使用分页插件
+                bootstrapMajorVersion : 3,
+                currentPage : currentPage,
+                totalPages : totalPages,
+                size : "normal",
+                itemTexts : function(type, page, current) {
+                    switch (type) {
+                        case "first":
+                            return "首页";
+                        case "prev":
+                            return "上一页";
+                        case "next":
+                            return "下一页";
+                        case "last":
+                            return "末页";
+                        case "page":
+                            return page;
+                    }
+                },
+                onPageClicked : function(event, originalEvent, type, page) {
+                    $.ajax({
+                        type: 'GET',
+                        url: urlBase + urlProjectArticle + urlSelLatestArticle + "?type=1&pageNum="+page+"&pageSize="+pageSize,
+                        success: function (res) {
+                            if (res.code != 200) {
+                                swal({
+                                    text: res.msg
+                                });
+                            } else {
+                                drawingLatestArticleDatas(res.datas.list);
+                            }
+                        }
+                    });
+
+                }
+            });
+        }
         $(function () {
 
+            //文章类型数据
+            $.ajax({
+                type: 'GET',
+                url: urlBase + urlProjectArticle + urlSelArticleType,
+                success: function (res) {
+                    if (res.code != 200) {
+                        swal({
+                            text: res.msg
+                        });
+                    } else {
+                        let html = "";
+                        res.datas.forEach((item, index, array) => {
+                            html = html + "<a>" + item.name + "</a>"
+                        })
+                        $('#articleType').html("<a>" + html + "</a>");
+
+                    }
+                }
+            });
+            //最新文章
+            $.ajax({
+                type: 'GET',
+                url: urlBase + urlProjectArticle + urlSelLatestArticle + "?type=1&pageSize=1&pageNum=1",
+                success: function (res) {
+                    if (res.code != 200) {
+                        swal({
+                            text: res.msg
+                        });
+                    } else {
+                        drawingLatestArticleDatas($('#paging'),res.datas.list);
+                        // setLatestArticleBootstrapPaginator($('#paging'),res.datas.pageNum,Math.ceil(res.datas.total%res.datas.pageSize),1);
+                    }
+                }
+            });
+            //最热文章
+            $.ajax({
+                type: 'GET',
+                url: urlBase + urlProjectArticle + urlSelHotArticle,
+                success: function (res) {
+                    if (res.code != 200) {
+                        swal({
+                            text: res.msg
+                        });
+                    } else {
+                        let html = ""
+                        res.datas.forEach((item, index, array) => {
+                            html += " <li><a href=\"\"><span class=\"thumbnail\"><img class=\"thumb\" data-original=\"images/excerpt.jpg\"\n" +
+                                "                                                            src=\"" + item.imageUrl + "\" alt=\"\"></span><span class=\"text\">" + item.title + "</span><span\n" +
+                                "                        class=\"muted\"><i class=\"glyphicon glyphicon-time\"></i> " + item.title + " </span><span class=\"muted\"><i\n" +
+                                "                        class=\"glyphicon glyphicon-eye-open\"></i> " + item.viewingTimes + "</span></a></li>";
+                        })
+                        $('#hotArticle').html(html);
+
+                    }
+                }
+            });
+            //每日一句
+            $.ajax({
+                type: 'GET',
+                url: urlBase + urlProjectArticle + urlSelDailySentence,
+                success: function (res) {
+                    if (res.code != 200) {
+                        swal({
+                            text: res.msg
+                        });
+                    } else {
+                        let html = " <div class=\"widget-sentence-content\">\n" +
+                            "                <h4>" + res.datas.createTime + "</h4>\n" +
+                            "                <p>" + res.datas.content + "</p>\n" +
+                            "            </div>";
+                        $('#dailySentence').html(html);
+
+                    }
+                }
+            });
+            //每日推荐
+            $.ajax({
+                type: 'GET',
+                url: urlBase + urlProjectArticle + urlSelDailyRecommendation,
+                success: function (res) {
+                    if (res.code != 200) {
+                        swal({
+                            text: res.msg
+                        });
+                    } else {
+                        let html = "<h2><span class=\"red\">【今日推荐】</span><a href=\"\" title=\"\">"+res.datas.title+"</a></h2>\n" +
+                            "                <p class=\"note\">"+res.datas.description+"</p>";
+                        $('#dailyRecommend').html(html);
+
+                    }
+                }
+            });
             $('#login').click(function () {
                 //获得用户名
                 let username = $('#loginModalUserNmae').val();
@@ -54,9 +213,9 @@
                             swal({
                                 text: res.msg
                             });
-                        }else{
+                        } else {
                             swal({
-                                text:"登陆成功！",
+                                text: "登陆成功！",
                                 timer: 1000
                             })
                             //关闭模态框
@@ -67,6 +226,7 @@
                             $('#loginSuccessDiv').show();
                             //设置登陆成功标签页的名称
                             $('#loginSuccessUsername').text(username);
+
                         }
                     }
                 });
@@ -99,10 +259,11 @@
                 </ul>
                 <div id="loginDiv">
                     <a data-toggle="modal" data-target="#loginModal" class="login" rel="nofollow">Hi,请登录</a>&nbsp;&nbsp;
-                    <a href="javascript:;" class="register" rel="nofollow" data-toggle="modal" data-target="#registerModal">我要注册</a>
+                    <a href="javascript:;" class="register" rel="nofollow" data-toggle="modal"
+                       data-target="#registerModal">我要注册</a>
                     <a href="" rel="nofollow">找回密码</a>
                 </div>
-                <div id="loginSuccessDiv" style="display:none" >
+                <div id="loginSuccessDiv" style="display:none">
                     <a href="" rel="nofollow" id="loginSuccessUsername">欢迎登陆：roger</a>
                     <a href="" rel="nofollow" id="loginSuccessLogout">退出</a>
                 </div>
@@ -170,105 +331,20 @@
                                                            role="button" data-slide="next" rel="nofollow"> <span
                     class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span
                     class="sr-only">下一个</span> </a></div>
-            <article class="excerpt-minic excerpt-minic-index">
-                <h2><span class="red">【今日推荐】</span><a href="" title="">从下载看我们该如何做事</a></h2>
-                <p class="note">一次我下载几部电影，发现如果同时下载多部要等上几个小时，然后我把最想看的做个先后排序，去设置同时只能下载一部，结果是不到一杯茶功夫我就能看到最想看的电影。
-                    这就像我们一段时间内想干成很多事情，是同时干还是有选择有顺序的干，结果很不一样。同时...</p>
+            <article class="excerpt-minic excerpt-minic-index" id="dailyRecommend">
+
             </article>
             <div class="title">
                 <h3>最新发布</h3>
-                <div class="more"><a href="">PHP</a><a href="">JavaScript</a><a href="">EmpireCMS</a><a
-                        href="">Apache</a><a href="">MySQL</a></div>
+                <div class="more" id="articleType">
+
+                </div>
             </div>
-            <article class="excerpt excerpt-1"><a class="focus" href="article.html" title=""><img class="thumb"
-                                                                                                  data-original="images/excerpt.jpg"
-                                                                                                  src="images/excerpt.jpg"
-                                                                                                  alt=""></a>
-                <header><a class="cat" href="program">后端程序<i></i></a>
-                    <h2><a href="article.html" title="">php如何判断一个日期的格式是否正确</a></h2>
-                </header>
-                <p class="meta">
-                    <time class="time"><i class="glyphicon glyphicon-time"></i> 2016-1-4 10:29:39</time>
-                    <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共120人围观</span> <a class="comment"
-                                                                                                       href="article.html#comment"><i
-                        class="glyphicon glyphicon-comment"></i> 0个不明物体</a></p>
-                <p class="note">
-                    可以用strtotime()把日期（$date）转成时间戳，再用date()按需要验证的格式转成一个日期，来跟$date比较是否相同来验证这个日期的格式是否是正确的。所以要验证日期格式
-                    ... </p>
-            </article>
-            <article class="excerpt excerpt-2"><a class="focus" href="article.html" title=""><img class="thumb"
-                                                                                                  data-original="images/excerpt.jpg"
-                                                                                                  src="images/excerpt.jpg"
-                                                                                                  alt=""></a>
-                <header><a class="cat" href="program">后端程序<i></i></a>
-                    <h2><a href="article.html" title="">php如何判断一个日期的格式是否正确</a></h2>
-                </header>
-                <p class="meta">
-                    <time class="time"><i class="glyphicon glyphicon-time"></i> 2016-1-4 10:29:39</time>
-                    <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共120人围观</span> <a class="comment"
-                                                                                                       href="article.html#comment"><i
-                        class="glyphicon glyphicon-comment"></i> 0个不明物体</a></p>
-                <p class="note">
-                    可以用strtotime()把日期（$date）转成时间戳，再用date()按需要验证的格式转成一个日期，来跟$date比较是否相同来验证这个日期的格式是否是正确的。所以要验证日期格式
-                    ... </p>
-            </article>
-            <article class="excerpt excerpt-3"><a class="focus" href="article.html" title=""><img class="thumb"
-                                                                                                  data-original="images/excerpt.jpg"
-                                                                                                  src="images/excerpt.jpg"
-                                                                                                  alt=""></a>
-                <header><a class="cat" href="program">后端程序<i></i></a>
-                    <h2><a href="article.html" title="">php如何判断一个日期的格式是否正确</a></h2>
-                </header>
-                <p class="meta">
-                    <time class="time"><i class="glyphicon glyphicon-time"></i> 2016-1-4 10:29:39</time>
-                    <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共120人围观</span> <a class="comment"
-                                                                                                       href="article.html#comment"><i
-                        class="glyphicon glyphicon-comment"></i> 0个不明物体</a></p>
-                <p class="note">
-                    可以用strtotime()把日期（$date）转成时间戳，再用date()按需要验证的格式转成一个日期，来跟$date比较是否相同来验证这个日期的格式是否是正确的。所以要验证日期格式
-                    ... </p>
-            </article>
-            <article class="excerpt excerpt-4"><a class="focus" href="article.html" title=""><img class="thumb"
-                                                                                                  data-original="images/excerpt.jpg"
-                                                                                                  src="images/excerpt.jpg"
-                                                                                                  alt=""></a>
-                <header><a class="cat" href="program">后端程序<i></i></a>
-                    <h2><a href="article.html" title="">php如何判断一个日期的格式是否正确</a></h2>
-                </header>
-                <p class="meta">
-                    <time class="time"><i class="glyphicon glyphicon-time"></i> 2016-1-4 10:29:39</time>
-                    <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共120人围观</span> <a class="comment"
-                                                                                                       href="article.html#comment"><i
-                        class="glyphicon glyphicon-comment"></i> 0个不明物体</a></p>
-                <p class="note">
-                    可以用strtotime()把日期（$date）转成时间戳，再用date()按需要验证的格式转成一个日期，来跟$date比较是否相同来验证这个日期的格式是否是正确的。所以要验证日期格式
-                    ... </p>
-            </article>
-            <article class="excerpt excerpt-5"><a class="focus" href="article.html" title=""><img class="thumb"
-                                                                                                  data-original="images/excerpt.jpg"
-                                                                                                  src="images/excerpt.jpg"
-                                                                                                  alt=""></a>
-                <header><a class="cat" href="program">后端程序<i></i></a>
-                    <h2><a href="article.html" title="">php如何判断一个日期的格式是否正确</a></h2>
-                </header>
-                <p class="meta">
-                    <time class="time"><i class="glyphicon glyphicon-time"></i> 2016-1-4 10:29:39</time>
-                    <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共120人围观</span> <a class="comment"
-                                                                                                       href="article.html#comment"><i
-                        class="glyphicon glyphicon-comment"></i> 0个不明物体</a></p>
-                <p class="note">
-                    可以用strtotime()把日期（$date）转成时间戳，再用date()按需要验证的格式转成一个日期，来跟$date比较是否相同来验证这个日期的格式是否是正确的。所以要验证日期格式
-                    ... </p>
-            </article>
-            <nav class="pagination" style="display: none;">
-                <ul>
-                    <li class="prev-page"></li>
-                    <li class="active"><span>1</span></li>
-                    <li><a href="?page=2">2</a></li>
-                    <li class="next-page"><a href="?page=2">下一页</a></li>
-                    <li><span>共 2 页</span></li>
-                </ul>
-            </nav>
+            <div>
+                <div id="article">
+                </div>
+                <ul id="paging"></ul>
+            </div>
         </div>
     </div>
     <aside class="sidebar">
@@ -321,36 +397,12 @@
             </div>
         </div>
         <div class="widget widget_sentence">
-            <h3>每日一句</h3>
-            <div class="widget-sentence-content">
-                <h4>2016年01月05日星期二</h4>
-                <p>Do not let what you cannot do interfere with what you can do.<br/>
-                    别让你不能做的事妨碍到你能做的事。（John Wooden）</p>
-            </div>
+            <h3 >每日一句</h3>
+            <div id="dailySentence"></div>
         </div>
         <div class="widget widget_hot">
             <h3>热门文章</h3>
-            <ul>
-                <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg"
-                                                            src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span
-                        class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i
-                        class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-                <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg"
-                                                            src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span
-                        class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i
-                        class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-                <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg"
-                                                            src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span
-                        class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i
-                        class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-                <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg"
-                                                            src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span
-                        class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i
-                        class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-                <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg"
-                                                            src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span
-                        class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i
-                        class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
+            <ul id="hotArticle">
             </ul>
         </div>
     </aside>
