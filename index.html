@@ -29,7 +29,7 @@
 
     <script type="text/javascript" src="js/sweetalert2.all.min.js"></script>
     <script>
-        let urlBase = "http://localhost:30004"
+        let urlBase = "http://139.9.87.17:30004"
         let urlProjectAuthority = "/graduation-project-roger-authority"
         let urlProjectArticle = "/graduation-project-roger-article"
         let urlLogin = "/authority/login"
@@ -131,7 +131,7 @@
                         });
                     } else {
                         drawingLatestArticleDatas($('#paging'),res.datas.list);
-                        // setLatestArticleBootstrapPaginator($('#paging'),res.datas.pageNum,Math.ceil(res.datas.total%res.datas.pageSize),1);
+                        setLatestArticleBootstrapPaginator($('#paging'),1,Math.ceil(res.datas.total%res.datas.pageSize),1);
                     }
                 }
             });
