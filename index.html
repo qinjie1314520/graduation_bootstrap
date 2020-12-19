@@ -13,8 +13,10 @@
     <link rel="apple-touch-icon-precomposed" href="images/icon/icon.png">
     <link rel="shortcut icon" href="images/icon/favicon.ico">
     <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/jquery.cookie.js" type="text/javascript"></script>
     <script src="js/nprogress.js"></script>
     <script src="js/jquery.lazyload.min.js"></script>
+    <script src="js/template-native.js"></script>
     <!--[if gte IE 9]>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/html5shiv.min.js" type="text/javascript"></script>
@@ -28,39 +30,10 @@
     <script type="text/javascript" src="js/bootstrap-paginator.js"></script>
 
     <script type="text/javascript" src="js/sweetalert2.all.min.js"></script>
-    <script>
-        let urlBase = "http://139.9.87.17:30004"
-        let urlProjectAuthority = "/graduation-project-roger-authority"
-        let urlProjectArticle = "/graduation-project-roger-article"
-        let urlLogin = "/authority/login"
-        let urlSelArticleType = "/article/home/selArticleType"
-        let urlSelLatestArticle = "/article/home/selLatestArticle"
-        let urlSelHotArticle = "/article/home/selHotArticle"
-        let urlSelDailyRecommendation = "/article/home/selDailyRecommendation"
-        let urlSelDailySentence = "/article/home/selDailySentence"
 
-        function drawingLatestArticleDatas(ul,list){
-            //生成分页
-            let html = ""
-            list.forEach((item, index, array) => {
-                html += "<article class=\"excerpt excerpt-1\">\n" +
-                    "                <a class=\"focus\" href=\"article.html\" title=\"\">\n" +
-                    "                    <img class=\"thumb\" data-original=\"images/excerpt.jpg\" src=" + item.imageUrl + " alt=\"\"></a>\n" +
-                    "                <header><a class=\"cat\" href=\"program\">后端程序<i></i></a>\n" +
-                    "                    <h2><a href=\"article.html\" title=\"\">" + item.title + "</a></h2>\n" +
-                    "                </header>\n" +
-                    "                <p class=\"meta\">\n" +
-                    "                    <time class=\"time\"><i class=\"glyphicon glyphicon-time\"></i> " + item.time + "</time>\n" +
-                    "                    <span class=\"views\"><i class=\"glyphicon glyphicon-eye-open\"></i> 共" + item.viewingTimes + "人围观</span> <a class=\"comment\"\n" +
-                    "                                                                                                       href=\"article.html#comment\"><i\n" +
-                    "                        class=\"glyphicon glyphicon-comment\"></i> 0个不明物体</a></p>\n" +
-                    "                <p class=\"note\">\n" +
-                    "                    " + item.description + " </p>\n" +
-                    "            </article>";
-            })
-            ul.html(html);
-        }
 
+    <script type="module">
+        import * as globalParams from './js/global_param.js'
         function setLatestArticleBootstrapPaginator(paging,currentPage, totalPages,pageSize) {
             paging.bootstrapPaginator({//使用分页插件
                 bootstrapMajorVersion : 3,
@@ -82,6 +55,7 @@
                     }
                 },
                 onPageClicked : function(event, originalEvent, type, page) {
+                    $('#article').html('');
                     $.ajax({
                         type: 'GET',
                         url: urlBase + urlProjectArticle + urlSelLatestArticle + "?type=1&pageNum="+page+"&pageSize="+pageSize,
@@ -91,7 +65,11 @@
                                     text: res.msg
                                 });
                             } else {
-                                drawingLatestArticleDatas(res.datas.list);
+                                var obj={
+                                    list:res.datas.list
+                                }
+                                var html=template("templateId",obj);
+                                $('#article').html(html);
                             }
                         }
                     });
@@ -100,11 +78,10 @@
             });
         }
         $(function () {
-
             //文章类型数据
             $.ajax({
                 type: 'GET',
-                url: urlBase + urlProjectArticle + urlSelArticleType,
+                url: globalParams.address_of_the_interface.url_base + globalParams.address_of_the_interface.url_project_article + globalParams.address_of_the_interface.url_selArticleType,
                 success: function (res) {
                     if (res.code != 200) {
                         swal({
@@ -123,22 +100,26 @@
             //最新文章
             $.ajax({
                 type: 'GET',
-                url: urlBase + urlProjectArticle + urlSelLatestArticle + "?type=1&pageSize=1&pageNum=1",
+                url: globalParams.address_of_the_interface.url_base + globalParams.address_of_the_interface.url_project_article + globalParams.address_of_the_interface.url_selLatestArticle + "?type=1&pageSize=1&pageNum=1",
                 success: function (res) {
                     if (res.code != 200) {
                         swal({
                             text: res.msg
                         });
                     } else {
-                        drawingLatestArticleDatas($('#paging'),res.datas.list);
-                        setLatestArticleBootstrapPaginator($('#paging'),1,Math.ceil(res.datas.total%res.datas.pageSize),1);
+                        var obj={
+                            list:res.datas.list
+                        }
+                        var html=template("templateId",obj);
+                        $('#article').html(html);
+                        setLatestArticleBootstrapPaginator($('#paging'),1,2,1)
                     }
                 }
             });
             //最热文章
             $.ajax({
                 type: 'GET',
-                url: urlBase + urlProjectArticle + urlSelHotArticle,
+                url: globalParams.address_of_the_interface.url_base + globalParams.address_of_the_interface.url_project_article + globalParams.address_of_the_interface.url_selHotArticle,
                 success: function (res) {
                     if (res.code != 200) {
                         swal({
@@ -160,7 +141,7 @@
             //每日一句
             $.ajax({
                 type: 'GET',
-                url: urlBase + urlProjectArticle + urlSelDailySentence,
+                url: globalParams.address_of_the_interface.url_base + globalParams.address_of_the_interface.url_project_article + globalParams.address_of_the_interface.url_selDailySentence,
                 success: function (res) {
                     if (res.code != 200) {
                         swal({
@@ -179,7 +160,7 @@
             //每日推荐
             $.ajax({
                 type: 'GET',
-                url: urlBase + urlProjectArticle + urlSelDailyRecommendation,
+                url: globalParams.address_of_the_interface.url_base + globalParams.address_of_the_interface.url_project_article + globalParams.address_of_the_interface.url_selDailyRecommendation,
                 success: function (res) {
                     if (res.code != 200) {
                         swal({
@@ -193,10 +174,20 @@
                     }
                 }
             });
+            // alert($.cookie('username'));
             $('#login').click(function () {
+
                 //获得用户名
                 let username = $('#loginModalUserNmae').val();
                 let password = $('#loginModalUserPwd').val();
+                // $.cookie("username", username, {
+                //     //cookies信息的有效时常（7天）。
+                //     expires: 7
+                // });
+                // $.cookie("password", password, {
+                //     //cookies信息的有效时常（7天）。
+                //     expires: 7
+                // });
                 let json = {
                     username: username,
                     password: password,
@@ -204,7 +195,7 @@
                 }
                 $.ajax({
                     type: 'POST',
-                    url: urlBase + urlProject + urlLogin,
+                    url: globalParams.address_of_the_interface.url_base + globalParams.address_of_the_interface.url_project_authority + globalParams.address_of_the_interface.url_login,
                     dataType: "json",
                     headers: {'Content-Type': 'application/json'},
                     data: JSON.stringify(json),
@@ -214,6 +205,11 @@
                                 text: res.msg
                             });
                         } else {
+                            //登陆成功保存jwt
+                            $.cookie(TOKEN, res.datas, {
+                                //cookies信息的有效时常（7天）。
+                                expires: 7
+                            });
                             swal({
                                 text: "登陆成功！",
                                 timer: 1000
@@ -226,16 +222,37 @@
                             $('#loginSuccessDiv').show();
                             //设置登陆成功标签页的名称
                             $('#loginSuccessUsername').text(username);
-
                         }
                     }
                 });
             })
         })
     </script>
+
+
 </head>
 
 <body class="user-select">
+<script type="text/template" id="templateId">
+    <%for(var i=0;i<list.length;i++){%>
+    <article class="excerpt excerpt-1">
+        <a class="focus" href="article.html" title="">
+            <img class="thumb" data-original="images/excerpt.jpg" src="<%=list[i].imageUrl%>" alt=""></a>
+        <header><a class="cat" href="program">后端程序<i></i></a>
+            <h2><a href="article.html" title=""><%=list[i].title%>  </a></h2>
+        </header>
+        <p class="meta">
+            <time class="time"><i class="glyphicon glyphicon-time"></i>  <%=list[i].time%> </time>
+            <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共 <%=list[i].viewingTimes%>人围观</span>
+
+            <a class="comment" href="article.html#comment"><i class="glyphicon glyphicon-comment"></i>
+                0个不明物体</a>
+        </p>
+        <p class="note"><%=list[i].description%></p>
+    </article>
+
+    <%}%>
+</script>
 
 <header class="header">
     <nav class="navbar navbar-default" id="navbar">
@@ -277,12 +294,7 @@
             </div>
             <div class="collapse navbar-collapse" id="header-navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden-index active"><a data-cont="异清轩首页" href="index.html">异清轩首页</a></li>
-                    <li><a href="category.html">前端技术</a></li>
-                    <li><a href="category.html">后端程序</a></li>
-                    <li><a href="category.html">管理系统</a></li>
-                    <li><a href="category.html">授人以渔</a></li>
-                    <li><a href="category.html">程序人生</a></li>
+                    <li class="hidden-index active"><a data-cont="异清轩首页" href="index.html">roger首页</a></li>
                 </ul>
                 <form class="navbar-form visible-xs" action="/Search" method="post">
                     <div class="input-group">
@@ -341,8 +353,7 @@
                 </div>
             </div>
             <div>
-                <div id="article">
-                </div>
+                <div id="article"></div>
                 <ul id="paging"></ul>
             </div>
         </div>
