@@ -6,15 +6,19 @@
   <title>我的大学生活</title>
   <link rel="stylesheet" href="../res/layui/css/layui.css">
   <link rel="stylesheet" href="../res/static/css/index.css">
-  <script type="text/javascript" charset="utf-8" async="" src="https://cdn.jsdelivr.net/npm/live2d-widget@3.0.4/lib/L2Dwidget.0.min.js"></script>
+  <script src="../../js/jquery-2.1.4.min.js"></script>
+  <script src="../../js/jquery.cookie.js" type="text/javascript"></script>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/live2d-widget@3.0.4/lib/L2Dwidget.min.js?_=1557308476616"></script>
+
+
   <script type="text/javascript">
-    L2Dwidget.init();
+    $(function () {
+
+    })
   </script>
 
 </head>
-<body>
+<body id="body">
   <!-- nav部分 -->
   <div class="nav index">
     <div class="layui-container">
@@ -93,8 +97,23 @@
   }).use('firm'); 
 </script>
 
+
+
+
+
+
+
+  <script type="text/javascript" charset="utf-8" async="" src="https://cdn.jsdelivr.net/npm/live2d-widget@3.0.4/lib/L2Dwidget.0.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/live2d-widget@3.0.4/lib/L2Dwidget.min.js?_=1557308476616"></script>
+  <script type="text/javascript">
+    L2Dwidget.init();
+    $(function () {
+      $('.footer').html("");
+    })
+  </script>
   <div id="live2d-widget">
     <canvas id="live2dcanvas" width="300" height="600" style="position: fixed;opacity: 0.7;right: 0px;bottom: -20px;z-index: 99999;pointer-events: none;border: 1px dashed rgb(204, 204, 204);"></canvas>
   </div>
+
 </body>
 </html>

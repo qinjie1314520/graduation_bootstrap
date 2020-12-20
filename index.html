@@ -226,6 +226,12 @@
                     }
                 });
             })
+            $('#register').click(function () {
+                    //获得用户名
+                    let username = $('#registerModalUserNmae').val();
+                    let password = $('#registerModalUserPwd').val();
+                    Swal(username+""+password);
+            })
         })
     </script>
 
@@ -490,7 +496,7 @@
     </div>
 </div>
 
-<!--登录注册模态框-->
+<!--注册模态框-->
 <div class="modal fade user-select" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -498,7 +504,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">登录</h4>
+                    <h4 class="modal-title">注册</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -514,7 +520,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-primary">登录</button>
+                    <button type="button" id="register" class="btn btn-primary">注册</button>
                 </div>
             </form>
         </div>
@@ -535,5 +541,21 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.ias.js"></script>
 <script src="js/scripts.js"></script>
+
+
+
 </body>
+<link rel="stylesheet" type="text/css" media="screen" href="dist/converse.min.css">
+<script src="dist/converse.min.js" charset="utf-8"></script>
+<script>
+    converse.initialize({
+        allow_muc:false,
+        allow_logout: false,
+        auto_login: true,
+        default_domain:"180.102.132.35",
+        password: 'qinjie',
+        jid: 'qinjie@180.102.132.35',
+        bosh_service_url: 'http://180.102.132.35:7070/http-bind/',
+        i18n: 'zh_CN'});
+</script>
 </html>
