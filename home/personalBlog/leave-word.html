@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <title>个人博客-留言板</title>
+    <link rel="stylesheet" href="res/layui/css/layui.css">
+    <link rel="stylesheet" href="res/static/css/index.css">
+
+
+    <link href="../../plugins/bootstrap-4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/mycss.css" rel="stylesheet">
+    <link href="../../plugins/swal/sweetalert2.min.css" rel="stylesheet">
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script src="../../js/jquery.cookie.js"></script>
+
+    <script src="../../js/template-native.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../plugins/bootstrap-4.0.0/js/bootstrap.bundle.js"></script>
+    <script src="../../plugins/swal/sweetalert2.all.min.js"></script>
+
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="../../js/global_param.js"></script>
+    <script src="../../plugins/customPage/bootstrap-pagination-spirit.js"></script>
+
+    <script>
+
+
+        $(function () {
+            var targetUserId = getUrlParam("id");
+            if (targetUserId == null) {
+                targetUserId = 1;
+            }
+
+
+            //头部初始哈
+            $('#header').html(header.html);
+            header.init(targetUserId);
+            $('#footer').html(footer.html);
+            footer.init();
+
+            //留言
+            var url = address_of_the_interface.url_base
+                + address_of_the_interface.url_project_user_center.base
+                + address_of_the_interface.url_project_user_center.url_selLeaveList;
+            var datas = {id: targetUserId, pageNum: 1, pageSize: 5};
+            var fun = function (redatas, isFirst) {
+                //数据展示
+                var obj = {
+                    list: redatas.list
+                };
+                var html = template("templateId", obj);
+                $('#leaveWordsList').html(html);
+                if (isFirst) {
+                    initSpiritPagination(redatas.total, getTotalPage(redatas.pageSize, redatas.total), redatas.pageSize, function (pageNum, pageSize) {
+                        datas.pageNum = pageNum;
+                        getPagingList(url, datas, fun, false);
+                    });
+                }
+            };
+            getPagingList(url, datas, fun, true);
+
+            $('#send').click(function () {
+                var note = $('#note').val();
+                postHttp(address_of_the_interface.url_base
+                    + address_of_the_interface.url_project_user_center.base
+                    + address_of_the_interface.url_project_user_center.url_insLeaveWords
+                    , {content:note,userId:targetUserId}
+                    , function (redatas) {
+                        swalInfoAutoClose("留言成功", 1200);
+                        getPagingList(url, datas, fun, true);
+                    });
+            });
+        })
+    </script>
+</head>
+
+<body>
+<!-- nav部分 -->
+<div id="header"></div>
+<!-- banner部分 -->
+<div class="banner lyb">
+    <div class="title">
+        <p>留言板</p>
+        <p class="en">About Us</p>
+    </div>
+</div>
+<!-- main部分 -->
+<div class="container-lg mt-5">
+    <div class="card border p-2">
+        <div class="card-header text-info  border-bottom border-info" style="background-color: white;">
+            留言
+        </div>
+        <div class="card-body">
+            <!--输入框-->
+            <div id="noteEdit">
+                <textarea name="note" id="note"></textarea>
+            </div>
+            <!--提交列表-->
+            <div class="input list-inline mt-3 container-fluid ">
+                <div class="row ">
+                    <div class="list-inline-item offset-11 p-0">
+                        <button type="button" class="btn  btn-info " style="width: 100%;height: 100%" id="send">发送
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--留言列表-->
+            <div class=" container-fluid mt-5 border p-2 " style="border-top: #17a2b8 solid 2px !important;">
+                <div class="p-1 comments" id="leaveWordsList">
+                </div>
+            </div>
+            <div class="spiritPagination"></div>
+        </div>
+
+
+    </div>
+
+</div>
+<hr/>
+<p id="msg"></p>
+</div>
+<div id="footer"></div>
+
+
+<script src="res/layui/layui.js"></script>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script>
+    layui.config({
+        base: 'res/static/js/'
+    }).use('firm');
+</script>
+
+<script type="text/template" id="templateId">
+    <%for(var i=0;i
+    <list.length;i++){%>
+    <div class="container comment  m-1 p-0">
+        <a class="me-a avatar p-0 m-0">
+            <img class="w-100 h-100 rounded-circle" src="<%=list[i].sourceProfile%>"
+                 alt="">
+        </a>
+        <div class=" ml-3 border-left ">
+            <div class="container ml-2">
+                <a class="author">
+                    <span><%=list[i].sourceName%></span>
+                    <span class="summary-text small"><%=list[i].createTime%></span>
+                </a>
+            </div>
+            <div class="messageText ml-2 container m-2"><%=list[i].content%></div>
+        </div>
+    </div>
+    <%}%>
+</script>
+</body>
+
+</html>

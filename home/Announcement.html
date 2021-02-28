@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>网站公告</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../js/jquery.lazyload.min.js"></script>
+
+    <script src="../js/global_param.js"></script>
+    <script type="text/javascript" src="../js/sweetalert2.all.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            //每日一句
+            $.ajax({
+                type: 'GET',
+                url: address_of_the_interface.url_base
+                    + address_of_the_interface.url_project_article.base
+                    + address_of_the_interface.url_project_article.url_selDailySentence,
+                success: function (res) {
+                    if (res.code != 200) {
+                        swal({
+                            text: res.msg
+                        });
+                    } else {
+                        let html = " <div class=\"widget-sentence-content\">\n" +
+                            "                <h4>" + res.datas.createTime + "</h4>\n" +
+                            "                <p>" + res.datas.content + "</p>\n" +
+                            "            </div>";
+                        $('#dailySentence').html(html);
+
+                    }
+                }
+            });
+            //最热文章
+            $.ajax({
+                type: 'GET',
+                url: address_of_the_interface.url_base + address_of_the_interface.url_project_article.base + address_of_the_interface.url_project_article.url_selHotArticle,
+                success: function (res) {
+                    if (res.code != 200) {
+                        swal({
+                            text: res.msg
+                        });
+                    } else {
+                        let html = "";
+                        res.datas.forEach((item, index, array) => {
+                            html += " <li><a href='ArticleDetails.html?id=" + item.id + "'><span class=\"thumbnail\"><img class=\"thumb\" data-original=\"images/excerpt.jpg\"\n" +
+                                "                                                            src=\"" + item.imageUrl + "\" alt=\"\"></span><span class=\"text\">" + item.title + "</span><span\n" +
+                                "                        class=\"muted\"><i class=\"glyphicon glyphicon-time\"></i> " + item.title + " </span><span class=\"muted\"><i\n" +
+                                "                        class=\"glyphicon glyphicon-eye-open\"></i> " + item.viewingTimes + "</span></a></li>";
+                        });
+                        $('#hotArticle').html(html);
+
+                    }
+                }
+            });
+
+            getHttp(address_of_the_interface.url_base
+                + address_of_the_interface.url_project_admin.base
+                + address_of_the_interface.url_project_admin.url_selAnnouncement
+                , {pageSize: 5, pageNum: 1}
+                , function (datas) {
+                    var html = '';
+                    datas.list.forEach(function (item) {
+                        html += "<li>\n" +
+                            "                  <time datetime=\"2016-01-04\">" + item.createTime + "</time>\n" +
+                            "                  <a href=\"\" target=\"_blank\">" + item.content + "</a></li>\n" +
+                            "                <li>";
+                    });
+                    $('#announcement').html(html);
+                });
+
+
+        });
+
+        function centerInit() {
+            getUserInfo(function (userInfo) {
+                $('#centre').html();
+            });
+        }
+    </script>
+</head>
+<div id="header"></div>
+<body class="user-select single">
+<section class="container">
+    <div class="content-wrap">
+    </div>
+    <aside class="sidebar">
+        <div class="fixed">
+            <div class="widget widget-tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab"
+                                                              data-toggle="tab">网站公告</a></li>
+                    <li role="presentation"><a href="#centre" aria-controls="centre" role="tab"
+                                               data-toggle="tab">会员中心</a></li>
+                    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab"
+                                               data-toggle="tab">联系站长</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane notice active" id="notice">
+                        <ul id="announcement">
+                        </ul>
+                    </div>
+                                <div role="tabpanel" class="tab-pane centre" id="centre">
+                                  <h4>需要登录才能进入会员中心</h4>
+                                  <p> <a href="javascript:;" class="btn btn-primary" id="announcementLogin">立即登录</a> <a href="javascript:;" class="btn btn-default" id="announcementRegister">现在注册</a> </p>
+                                </div>
+<!--                    <div role="tabpanel" class="tab-pane centre" id="centre">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-2 col-md-offset-3">-->
+<!--                                <h4>roger</h4>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <img src="../images/weixin.jpg" style="width:60px; height:60px;"-->
+<!--                                     class="img-responsive center-block img-circle" id="images"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                      <div class="row">-->
+<!--                        <p><a href="javascript:;" class="btn btn-primary">我的博客</a>-->
+<!--                          <a href="javascript:;" class="btn btn-default">收藏夹</a>-->
+<!--                          <a href="javascript:;" class="btn btn-default">历史记录</a>-->
+<!--                        </p>-->
+<!--                      </div>-->
+<!--                    </div>-->
+                    <div role="tabpanel" class="tab-pane contact" id="contact">
+                        <h2>Email:<br/>
+                            <a href="mailto:admin@ylsat.com" data-toggle="tooltip" data-placement="bottom"
+                               title="admin@ylsat.com">admin@ylsat.com</a></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="widget widget_search">
+                <form class="navbar-form" action="/Search" method="post">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字"
+                               maxlength="15" autocomplete="off">
+                        <span class="input-group-btn">
+            <button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+            </span></div>
+                </form>
+            </div>
+        </div>
+        <div class="widget widget_sentence">
+            <h3>每日一句</h3>
+            <div id="dailySentence"></div>
+        </div>
+        <div class="widget widget_hot">
+            <h3>热门文章</h3>
+            <ul id="hotArticle">
+            </ul>
+        </div>
+    </aside>
+</section>
+
+</body>
+</html>

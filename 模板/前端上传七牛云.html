@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+<input type="file" name="image" id="file">
+<input type="button" id="upload" value="upload">
+</body>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qiniu-js/3.1.2/qiniu.min.js"></script>
+
+
+<script>
+    function videoUpload(url) {
+        var videoHtml = "<video id='myvideo' controls='controls'></video>";
+        if ($("#myviude").length != 0) {
+            $(this).remove();
+        } else {
+            $("#video_url").next().append(videoHtml);
+        }
+        var myvideo = $("#myvideo");
+        var videoTime = $("#video_time");
+        myvideo.attr("src", "http://cdn.wevar.cn/" + url);
+        myvideo[0].onloadedmetadata = function () {
+            //alert(myvideo[0].duration);
+            var videoDuration = myvideo[0].duration;
+            videoTime.attr("value", formatTime(videoDuration));
+        }
+    }
+
+    function formatTime(time) {
+        var time = time || 0;
+        var h = parseInt(time / 3600),
+            m = parseInt(time % 3600 / 60),
+            s = parseInt(time % 60);
+        h = h < 10 ? "0" + h : h;
+        m = m < 10 ? "0" + m : m;
+        s = s < 10 ? "0" + s : s;
+        if (h == "00" && m == "00") {
+            return m + ":" + s;
+        } else if (h == "00" && m != "00") {
+            return m + ":" + s;
+        } else {
+            return h + ":" + m + ":" + s;
+        }
+    }
+
+    var qiniuToken = "wytNNbpW3l-EjoG3tI43MKEpqkhjtDX7diwR9B8C:SpgIcyIcYSUQNMekA7xPEgWKbho=:eyJzY29wZSI6ImRhdGEtbWVkaWEiLCJkZWFkbGluZSI6MTYxNDI0ODA2OX0=";
+
+
+    // 七牛token
+    $("#upload").click(function () {
+        var obj = $("#file");
+        // 获取文件在本地的绝对路径 C:\fakepath\cover.jpg
+        var fileName = obj.val();
+        // 获取文件后缀名 .jpg
+        var suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length)
+        // 获取文件对象
+        var file = obj.get(0).files[0]
+        // 获取文件大小 单位KB
+        var size = (file.size / 1024).toFixed(2)
+
+        // 设置上传的七牛key 上传成功需要把这个值提交到后台
+        var qiniuKey = "user/image/20190906/" + suffix
+
+        // 上传文件到七牛
+        var observer = {
+            //上传过程的监听函数 result参数带有total字段的 object，包含loaded、total、percent三个属性)
+            next(result) {
+                // 实现上传进度条 ...
+                console.log(result)
+            },
+            //上传失败回调
+            error(err) {
+                console.log(err.message)
+            },
+            // 上传完成回调
+            complete(res) {
+                // 提交数据给后端同事等业务逻辑 ....
+                console.log(res)
+            }
+        };
+        var putExtra = {
+            //原文件名
+            fname: "",
+            //用来放置自定义变量
+            params: {},
+            //限制上传文件类型
+            "mime-type": [{title : "Image files", extensions : "jpg,gif,png"}]
+        };
+        var config = {
+            // useCdnDomain: true,
+            // region: up.qiniup.com
+        };
+        var observable = qiniu.upload(file, qiniuKey, qiniuToken, putExtra, config);
+        // 上传开始
+        var subscription = observable.subscribe(observer);
+        // 取消上传
+        // subscription.unsubscribe();
+    })
+</script>
+</html>

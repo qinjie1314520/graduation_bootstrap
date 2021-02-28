@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>异清轩博客</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/nprogress.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+    <link rel="apple-touch-icon-precomposed" href="../images/icon/icon.png">
+    <link rel="shortcut icon" href="../images/icon/favicon.ico">
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../js/nprogress.js"></script>
+    <script src="../js/jquery.lazyload.min.js"></script>
+    <script src="../js/template-native.js"></script>
+
+    <link href="../css/sweetalert2.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../js/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript" src="js/header.js"></script>
+    <script type="text/javascript" src="js/footer.js"></script>
+    <script type="text/javascript" src="js/announcement.js"></script>
+
+
+    <script type="text/javascript" src="../js/global_param.js"></script>
+
+    <script>
+        function setLatestArticleBootstrapPaginator(paging, currentPage, totalPages, pageSize) {
+            paging.bootstrapPaginator({//使用分页插件
+                bootstrapMajorVersion: 3,
+                currentPage: currentPage,
+                totalPages: totalPages,
+                alignment: "center",
+                size: "normal",
+                itemTexts: function (type, page, current) {
+                    switch (type) {
+                        case "first":
+                            return "首页";
+                        case "prev":
+                            return "上一页";
+                        case "next":
+                            return "下一页";
+                        case "last":
+                            return "末页";
+                        case "page":
+                            return page;
+                    }
+                },
+                onPageClicked: function (event, originalEvent, type, page) {
+                    //最新文章
+                    $.ajax({
+                        type: 'GET',
+                        url: globalParams.address_of_the_interface.url_base + globalParams.address_of_the_interface.url_project_article.base + globalParams.address_of_the_interface.url_project_article.url_selLatestArticle + "?type=1&pageSize=" + pageSize + "&pageNum=" + currentPage,
+                        success: function (res) {
+                            if (res.code != 200) {
+                                swal({
+                                    text: res.msg
+                                });
+                            } else {
+                                var obj = {
+                                    list: res.datas.list
+                                }
+                                var html = template("templateId", obj);
+                                $('#article').html(html);
+                                var totalPages = Math.ceil(res.datas.total * 1.0 / res.datas.pageSize);
+                                setLatestArticleBootstrapPaginator($('#paging'), res.datas.pageNum, totalPages, res.datas.pageSize)
+                            }
+                        }
+                    });
+
+                }
+            });
+        }
+
+
+        //最新文章的请求参数
+        var selLatestArticleDatas = {
+            pageSize: 5,
+            pageNum: 1
+        };
+        var selLatestArticleUrl = address_of_the_interface.url_base
+            + address_of_the_interface.url_project_article.base
+            + address_of_the_interface.url_project_article.url_selLatestArticle;
+        var selLatestArticleFun = function (resdatas, isFirst) {
+            var obj = {
+                list: resdatas.list,
+                typeName: selLatestArticleDatas.typeName
+            };
+            var html = template("templateId", obj);
+            $('#article').html(html);
+            if (isFirst) {
+                setBootstrapPaginator($('#paging'), resdatas.pageNum,  Math.ceil(resdatas.total * 1.0 / resdatas.pageSize), resdatas.pageSize,selLatestArticleUrl,selLatestArticleDatas,selLatestArticleFun);
+            }
+        };
+
+        function typeAClick(item) {
+            selLatestArticleDatas.type = $(item)[0].getAttribute("value");
+            selLatestArticleDatas.typeName = $(item).text();
+            $('#article').html('');
+            getPagingList(selLatestArticleUrl, selLatestArticleDatas, selLatestArticleFun, true);
+        }
+        $(function () {
+            //头部初始哈
+            $('#header').html(header.html + header.loginModel + header.registerModel);
+            header.init();
+            $('#footer').html(footer.html);
+            $('#announcement1').html(announcement.html);
+            announcement.init();
+            //文章类型数据
+            getHttp(address_of_the_interface.url_base
+                + address_of_the_interface.url_project_article.base
+                + address_of_the_interface.url_project_article.url_selArticlePrograma
+                , null, function (datas) {
+                    let html = "";
+                    datas.forEach((item, index, array) => {
+                        html = html + "<a value='"+item.value+"' onclick='typeAClick(this)'>" + item.name + "</a>"
+                    });
+                    $('#articleType').html("<a>" + html + "</a>");
+
+                    selLatestArticleDatas.type = datas[0].value;
+                    selLatestArticleDatas.typeName = datas[0].name;
+                    //最新文章
+                    getPagingList(selLatestArticleUrl, selLatestArticleDatas, selLatestArticleFun, true);
+                });
+        })
+    </script>
+
+
+</head>
+
+<body class="user-select">
+
+<script type="text/template" id="templateId">
+    <%for(var i=0;i<list.length;i++){%>
+    <article class="excerpt excerpt-1">
+        <a class="focus" href="ArticleDetails.html?id=<%=list[i].id%>" title="">
+            <img class="thumb" data-original="images/excerpt.jpg" src="<%=list[i].imageUrl%>" alt=""></a>
+        <header><a class="cat"><%=typeName%><i></i></a>
+            <h2><a href="ArticleDetails.html?id=<%=list[i].id%>" title=""><%=list[i].title%> </a></h2>
+        </header>
+        <p class="meta">
+            <time class="time"><i class="glyphicon glyphicon-time"></i> <%=list[i].time%></time>
+            <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共 <%=list[i].viewingTimes%>人围观</span>
+
+            <a class="comment" href="article.html#comment"><i class="glyphicon glyphicon-comment"></i>
+                0个不明物体</a>
+        </p>
+        <p class="note"><%=list[i].description%></p>
+    </article>
+
+    <%}%>
+</script>
+<!--头部-->
+<div id="header"></div>
+
+
+<section class="container">
+    <div class="content-wrap">
+        <div class="content">
+            <div class="jumbotron">
+                <h1>欢迎访问异清轩博客</h1>
+                <p>在这里可以看到前端技术，后端程序，网站内容管理系统等文章，还有我的程序人生！</p>
+            </div>
+            <div id="focusslide" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#focusslide" data-slide-to="0" class="active"></li>
+                    <li data-target="#focusslide" data-slide-to="1"></li>
+                    <li data-target="#focusslide" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active"><a href="" target="_blank"><img src="../images/banner/banner_01.jpg" alt=""
+                                                                             class="img-responsive"></a>
+                        <!--<div class="carousel-caption"> </div>-->
+                    </div>
+                    <div class="item"><a href="" target="_blank"><img src="../images/banner/banner_02.jpg" alt=""
+                                                                      class="img-responsive"></a>
+                        <!--<div class="carousel-caption"> </div>-->
+                    </div>
+                    <div class="item"><a href="" target="_blank"><img src="../images/banner/banner_03.jpg" alt=""
+                                                                      class="img-responsive"></a>
+                        <!--<div class="carousel-caption"> </div>-->
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span
+                        class="sr-only">上一个</span> </a> <a class="right carousel-control" href="#focusslide"
+                                                           role="button" data-slide="next" rel="nofollow"> <span
+                    class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span
+                    class="sr-only">下一个</span> </a></div>
+            <article class="excerpt-minic excerpt-minic-index" id="dailyRecommend">
+
+            </article>
+            <div class="title">
+                <h3>最新发布</h3>
+                <div class="more" id="articleType">
+
+                </div>
+            </div>
+            <div>
+                <div id="article"></div>
+                <div class="row">
+                    <div class="col-md-offset-4">
+                        <ul id="paging"></ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--公告部分侧边栏-->
+    <div id="announcement1">
+    </div>
+</section>
+<!--页脚-->
+<div id="footer">
+</div>
+</body>
+<!--<link rel="stylesheet" type="text/css" media="screen" href="../dist/converse.min.css">-->
+<!--<script src="../dist/converse.min.js" charset="utf-8"></script>-->
+<!--<script>-->
+<!--    converse.initialize({-->
+<!--        allow_muc:false,-->
+<!--        allow_logout: false,-->
+<!--        auto_login: true,-->
+<!--        default_domain:"180.102.132.35",-->
+<!--        password: 'qinjie',-->
+<!--        jid: 'qinjie@180.102.132.35',-->
+<!--        bosh_service_url: 'http://180.102.132.35:7070/http-bind/',-->
+<!--        i18n: 'zh_CN'});-->
+<!--</script>-->
+</html>

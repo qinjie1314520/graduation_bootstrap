@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>异清轩博客</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script src="../../js/jquery.cookie.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/sweetalert2.all.min.js"></script>
+
+    <link href="../../summernot/summernote.min.css" rel="stylesheet">
+    <script src="../../summernot/summernote.min.js"></script>
+    <script src="../../js/global_param.js"></script>
+
+    <link rel="stylesheet" href="../../css/bootstrap-select.min.css">
+    <script src="../../js/bootstrap-select.min.js"></script>
+
+    <script>
+        function init(scene) {
+            var saveButton = function (context) {
+                var ui = $.summernote.ui;
+                // create button
+                var button = ui.button({
+                    contents: '<i class="fa fa-child"/> 保存',
+                    tooltip: 'hello',
+                    click: function () {
+                        //根据场景不同保存不同的信息
+                        switch (scene) {
+                            case "self-introduction_to_richtext":
+                                //编辑自我介绍
+                                postHttp(address_of_the_interface.url_base
+                                    + address_of_the_interface.url_project_user_center.base
+                                    + address_of_the_interface.url_project_user_center.url_updSelfIntroductionTitle
+                                    , {content: $('#summernote').summernote('code')}
+                                    , function (datas) {
+                                        swalInfoAutoClose("保存成功！", 1200);
+                                    });
+                                break;
+                            case "blog_to_richtext":
+                                $('#titleEdia').modal('toggle');
+                                break;
+                            default:
+                        }
+                    }
+                });
+                return button.render();   // return button as jquery object
+            };
+            var closeButton = function (context) {
+                var ui = $.summernote.ui;
+                // create button
+                var button = ui.button({
+                    contents: '<i class="fa fa-child"/> 关闭',
+                    tooltip: 'hello',
+                    click: function () {
+                        if (parent != null) {
+                            window.parent.opener.location.reload();
+                            window.close();
+                        }
+                    }
+                });
+                return button.render();   // return button as jquery object
+            };
+            $('#summernote').summernote({
+                toolbar: [
+                    ['operate', ['undo', 'redo']],
+                    ['magic', ['style']],
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['height', 'fontsize', 'ul', 'ol', 'paragraph']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['color', ['color']],
+                    ['insert', ['link', 'table', 'hr', 'video', 'picture']],
+                    ['layout', ['codeview']],//源代码阅读
+                    ['own', ['save', 'close']],
+                ],
+                buttons: {
+                    save: saveButton,
+                    close: closeButton
+                },
+                placeholder: 'write here...',
+                height: window.screen.availHeight,
+                focus: true                  // set focus to editable area after initializing summernote
+            }).on('summernote.change', function (we, contents, $editable) {
+                $('#summernoteHtml').html($('#summernote').summernote('code'));
+            });
+        }
+
+        var typeDatas = new Map();
+
+        $(document).ready(function () {
+            const scene = getUrlParam("scene");
+            const id = getUrlParam("id");
+            init(scene);
+
+
+            switch (scene) {
+                case "self-introduction_to_richtext":
+                    $('#summernoteHtml').html(localStorage.getItem(scene));
+                    $('#summernote').summernote('code', localStorage.getItem(scene));
+                    break;
+                case "blog_to_richtext":
+                    //类型数据
+                    getHttp(address_of_the_interface.url_base
+                        + address_of_the_interface.url_project_article.base
+                        + address_of_the_interface.url_project_article.url_selArticleTypePrograma
+                        , null, function (datas) {
+                            var $programa = $("#programa");
+                            var $type = $("#type");
+                            var programaHtml = '';
+                            datas.forEach(function (item, index) {
+                                var typeHtml = "";
+                                programaHtml += "<option value='" + item.value + "'>" + item.name + "</option>";
+                                item.children.forEach(function (child) {
+                                    typeHtml += "<option value='" + child.value + "'>" + child.name + "</option>";
+                                });
+                                typeDatas.set("" + item.value, typeHtml);
+                            });
+                            $programa.html(programaHtml);
+                            $programa.selectpicker("refresh");
+                            $programa.change(function () {
+                                const html = typeDatas.get($programa.val());
+                                $type.html(html);
+                                $type.selectpicker("refresh");
+                            });
+                        });
+                    //博客详情
+                    getHttp(address_of_the_interface.url_base
+                        + address_of_the_interface.url_project_article.base
+                        + address_of_the_interface.url_project_article.url_details
+                        , {id: id}, function (datas) {
+                            //内容数据
+                            $('#summernoteHtml').html(datas.article.content);
+                            $('#summernote').summernote('code', datas.article.content);
+                            $('#titleText').val(datas.article.title);
+                            $('#description').val(datas.article.description);
+                            $('#coverImage').val(datas.article.imageUrl);
+
+                            var $programa = $("#programa");
+                            var $type = $("#type");
+                            $programa.val(datas.oneLabels[0].value);
+                            $programa.selectpicker("refresh");
+
+
+                            const html = typeDatas.get("" + datas.oneLabels[0].value);
+                            $type.html(html);
+                            $type.selectpicker("refresh");
+                            datas.twoLabels.forEach(function (item) {
+                                $type.find("option[value="+item.value+"]").attr("selected",true);
+                            });
+                            $type.selectpicker("refresh");
+                        });
+                    //确定绑定响应函数
+                    $('#editSubmit').click(function () {
+                        var type = [];
+                        var programa = ($('#programa option:selected').val());
+                        $("#type option:selected").each(function () {
+                            type.push($(this).val());
+                        });
+                        postHttp(address_of_the_interface.url_base
+                            + address_of_the_interface.url_project_article.base
+                            + address_of_the_interface.url_project_article.url_updPersonBlog
+                            , {
+                                id: id
+                                , content: $('#summernote').summernote('code')
+                                , title: $('#titleText').val()
+                                , description: $('#description').val()
+                                , coverImage: $('#coverImage').val()
+                                , type: type
+                                , programa: programa
+                            }
+                            , function (datas) {
+                                $('#titleEdia').modal('toggle');
+                            })
+                    });
+                    break;
+                default:
+            }
+
+
+            // $.cookie('targetUserId', 1);
+            // $.cookie('token', "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1VXNlcm5hbWUiOiJyb2dlciIsInVJZCI6MSwic3ViIjoicm9nZXIiLCJleHBpcmUiOjIzMzM2MTc1NzEyOTksImlzcyI6InJvZ2VyIiwiZXhwIjoyMzMzNjE3NTcxLCJpYXQiOjE2MTM2MTc1NzEsInVSb2xlSWRzIjpbMV0sImp0aSI6IjEyMzRiZDIwLTlmYjctNDFmNi1hZDkxLTRmNWVkNDlmY2NlZSJ9.QKLh_KihsPjqnto3-qQK1UzjE4mNmHGh_TN11J6jLZc");
+
+            $('.selectpicker').selectpicker();
+
+        });
+    </script>
+
+</head>
+
+<body class="user-select">
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="summernote"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="summernoteHtml"></div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="titleEdia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">保存</h4>
+            </div>
+            <div class="modal-body">
+                <form class="bs-example bs-example-form" role="form">
+                    <div class="input-group">
+                        <span class="input-group-addon">标题</span>
+                        <input type="text" class="form-control" placeholder="请输入" id="titleText"/>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">封面图</span>
+                        <input type="text" class="form-control" placeholder="请输入图片地址" id="coverImage"/>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">描述</span>
+                        <textarea name="description" id="description" cols="30" rows="10" class="form-control"
+                                  style="resize:none;"></textarea>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">栏目</span>
+                        <select id="programa" name="programa" title="栏目"
+                                class="selectpicker show-tick form-control">
+                        </select>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">类型</span>
+                        <select id="type" name="type" title="类型" class="selectpicker show-tick form-control"
+                                multiple>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="editSubmit">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+</body>
+</html>

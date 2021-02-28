@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>博客详情页面</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../css/nprogress.css">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+    <link rel="apple-touch-icon-precomposed" href="../images/icon/icon.png">
+    <link rel="shortcut icon" href="../images/icon/favicon.ico">
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../js/nprogress.js"></script>
+    <script src="../js/jquery.lazyload.min.js"></script>
+
+    <script type="text/javascript" src="../js/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../js/sweetalert2.all.min.js"></script>
+
+
+    <script src="../js/global_param.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/announcement.js"></script>
+
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.ias.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="../js/jquery.qqFace.js"></script>
+
+
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <!--    document.write(returnCitySN["cip"]+','+returnCitySN["cname"])-->
+    <script>
+        $(window).on('load', function () {
+            //头部初始哈
+            $('#header').html(header.html + header.loginModel + header.registerModel);
+            header.init();
+            $('#footer').html(footer.html);
+            footer.init();
+            $('#announcement1').html(announcement.html);
+            announcement.init();
+
+            var blogId = getUrlParam("id");
+            if (blogId == null) {
+                blogId = 1;
+            }
+            //数据
+            //文章数据
+            getHttp(address_of_the_interface.url_base
+                + address_of_the_interface.url_project_article.base
+                + address_of_the_interface.url_project_article.url_details, {id: blogId}, function (datas) {
+                $('#content').html(datas.article.content);
+                $('#title').html("<h1 class=\"article-title\"><a href=\"../模板/article.html\">" + datas.article.title + "</a></h1>\n" +
+                    "        <div class=\"article-meta\"> <span class=\"item article-meta-time\">\n" +
+                    "          <time class=\"time\" data-toggle=\"tooltip\" data-placement=\"bottom\" " +
+                    "title=\"时间：2016-1-4 10:29:39\"><i class=\"glyphicon glyphicon-time\"></i> " + datas.article.createTime + "</time>\n" +
+                    "          </span> <span class=\"item article-meta-source\" " +
+                    "data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"来源：第一PHP社区\">" +
+                    "<i class=\"glyphicon glyphicon-globe\"></i> 个人博客平台</span> <span class=\"item article-meta-category\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"栏目：后端程序\"><i class=\"glyphicon glyphicon-list\"></i> <a href=\"program\" title=\"\">" + datas.oneLabels[0].name + "</a></span> <span class=\"item article-meta-views\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"查看：120\"><i class=\"glyphicon glyphicon-eye-open\"></i> 共" + datas.article.viewingTimes + "围观</span> <span class=\"item article-meta-comment\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"评论：0\"><i class=\"glyphicon glyphicon-comment\"></i> 0个不明物体</span> </div>\n")
+                var tags = '标签：';
+                datas.twoLabels.forEach(function (item) {
+                    tags += "<a href=\"\" rel=\"tag\">" + item.name + "</a>";
+                });
+                $('#tags').html(tags);
+            });
+
+            //评论
+            var url = address_of_the_interface.url_base
+                + address_of_the_interface.url_project_article.base
+                + address_of_the_interface.url_project_article.url_detailsComments;
+            var datas = {id: blogId, pageNum: 1, pageSize: 5};
+            var fun = function (datas, isFirst) {
+                //数据展示
+                var html = '';
+                datas.list.forEach(function (item, index) {
+                    html += "  <li class=\"comment-content\"><span class=\"comment-f\">#" + (index + 1 + (datas.pageNum - 1) * datas.pageSize) + "</span>\n" +
+                        "    <div class=\"comment-avatar\"><img class=\"avatar\" src='" + item.profile + "' alt=\"\"/></div>\n" +
+                        "    <div class=\"comment-main\">\n" +
+                        "      <p>来自<span class=\"address\">" + item.location + "</span>的用户<span class=\"time\">(" + item.createTime + ")</span><br/>\n" +
+                        "" + item.content + "</p>\n" +
+                        "    </div>\n" +
+                        "  </li>";
+                });
+                $('#commentlist').html(html);
+                if (isFirst) {
+                    setBootstrapPaginator($('#paging'), 1, getTotalPage(datas.pageSize, datas.total), 5, url, datas, fun);
+                }
+            };
+            getPagingList(url, datas, fun, true);
+            getUserInfo(function (datas) {
+                $('#commentProfile').attr('src', datas.profile);
+            });
+            //推荐
+            $.ajax({
+                type: 'GET',
+                url: address_of_the_interface.url_base
+                    + address_of_the_interface.url_project_article.base
+                    + address_of_the_interface.url_project_article.url_detailsRecommend,
+                headers: {
+                    Authorization: $.cookie(common.token)
+                },
+                data: {id: blogId},
+                success: function (res) {
+                    if (res.code == 200) {
+                        var html = '';
+                        res.datas.forEach(function (item) {
+                            html += "<li><a href='ArticleDetails.html?id=" + item.value + "'>" + item.name + "</a></li>";
+                        });
+                        $('#recommend').html(html);
+                    } else {
+                        swalInfoAutoClose(res.meg, 1000);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+            //评论的响应函数
+            $('#comment-submit').click(function () {
+                putHttp(address_of_the_interface.url_base
+                    + address_of_the_interface.url_project_article.base
+                    + address_of_the_interface.url_project_article.url_comment,
+                    {articleId: blogId, location: returnCitySN["cname"], content: $('#comment-textarea').val()},
+                    function (resDatas) {
+                        getPagingList(url, datas, fun, true);
+                    });
+            });
+        });
+
+    </script>
+</head>
+<div id="header"></div>
+<body class="user-select single">
+
+<section class="container">
+    <div class="content-wrap">
+        <div class="content">
+            <header class="article-header" id="title">
+            </header>
+
+            <article class="article-content" id="content">
+            </article>
+
+            <div class="article-tags" id="tags"></div>
+            <div class="relates">
+                <div class="title">
+                    <h3>相关推荐</h3>
+                </div>
+                <ul id="recommend">
+
+                </ul>
+            </div>
+            <div class="title">
+                <h3>评论 <small>抢沙发</small></h3>
+            </div>
+            <div id="respond">
+                <form action="" method="post" id="comment-form">
+                    <div class="comment">
+                        <div class="comment-title"><img class="avatar" id="commentProfile" src="../images/icon/icon.png"
+                                                        alt=""/></div>
+                        <div class="comment-box">
+                            <textarea placeholder="您的评论可以一针见血" name="comment" id="comment-textarea" cols="100%" rows="3"
+                                      tabindex="1"></textarea>
+                            <div class="comment-ctrl"><span class="emotion"><img src="../images/face/5.png" width="20"
+                                                                                 height="20" alt=""/>表情</span>
+                                <div class="comment-prompt"><i class="fa fa-spin fa-circle-o-notch"></i> <span
+                                        class="comment-prompt-text"></span></div>
+                                <input type="hidden" value="1" class="articleid"/>
+                                <button type="button" name="comment-submit" id="comment-submit" tabindex="5"
+                                        articleid="1">评论
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="postcomments">
+                <ol class="commentlist" id="commentlist">
+                    <!--                                        <li class="comment-content"><span class="comment-f">#1</span>-->
+                    <!--                                            <div class="comment-avatar"><img class="avatar" src="../images/icon/icon.png" alt=""/></div>-->
+                    <!--                                            <div class="comment-main">-->
+                    <!--                                                <p>来自<span class="address">河南郑州</span>的用户<span class="time">(2016-01-06)</span><br/>-->
+                    <!--                                                    这是匿名评论的内容这是匿名评论的内容，这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容。</p>-->
+                    <!--                                            </div>-->
+                    <!--                                        </li>-->
+                </ol>
+                <div class="quotes row">
+                    <div class="col-lg-offset-5">
+                        <ul id="paging"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="announcement1">
+    </div>
+
+</section>
+<div id="footer">
+</div>
+
+
+</body>
+</html>
