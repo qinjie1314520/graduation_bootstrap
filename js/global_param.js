@@ -127,6 +127,28 @@ function postHttp(url,datas,successFunc) {
         }
     });
 };
+function postHttpAsync(url,datas,successFunc) {
+    $.ajax({
+        type: 'POST',
+        url:url,
+        async:true,
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: $.cookie(common.token)
+        },
+        data:JSON.stringify(datas),
+        success: function (res) {
+            if (res.code == 200) {
+                successFunc(res.datas);
+            }else{
+                swalInfoAutoClose(res.msg, 1000);
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+};
 function putHttp(url,datas,successFunc) {
     $.ajax({
         type: 'PUT',
@@ -194,7 +216,8 @@ const address_of_the_interface = {
         url_selArticlePrograma: "/article/home/selArticlePrograma",
         url_selArticleTypePrograma: "/article/home/selArticleTypePrograma",
         url_selCollectList: "/article/collect/selCollectList",
-        url_updBlogCollect: "/article/collect/updBlogCollect"
+        url_updBlogCollect: "/article/collect/updBlogCollect",
+        url_selHistoryBlogList: "/article/history/selHistoryBlogList"
 
     },
     url_project_admin: {

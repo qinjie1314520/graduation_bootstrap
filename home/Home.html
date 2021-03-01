@@ -32,64 +32,19 @@
     <script type="text/javascript" src="../js/global_param.js"></script>
 
     <script>
-        function setLatestArticleBootstrapPaginator(paging, currentPage, totalPages, pageSize) {
-            paging.bootstrapPaginator({//使用分页插件
-                bootstrapMajorVersion: 3,
-                currentPage: currentPage,
-                totalPages: totalPages,
-                alignment: "center",
-                size: "normal",
-                itemTexts: function (type, page, current) {
-                    switch (type) {
-                        case "first":
-                            return "首页";
-                        case "prev":
-                            return "上一页";
-                        case "next":
-                            return "下一页";
-                        case "last":
-                            return "末页";
-                        case "page":
-                            return page;
-                    }
-                },
-                onPageClicked: function (event, originalEvent, type, page) {
-                    //最新文章
-                    $.ajax({
-                        type: 'GET',
-                        url: globalParams.address_of_the_interface.url_base + globalParams.address_of_the_interface.url_project_article.base + globalParams.address_of_the_interface.url_project_article.url_selLatestArticle + "?type=1&pageSize=" + pageSize + "&pageNum=" + currentPage,
-                        success: function (res) {
-                            if (res.code != 200) {
-                                swal({
-                                    text: res.msg
-                                });
-                            } else {
-                                var obj = {
-                                    list: res.datas.list
-                                }
-                                var html = template("templateId", obj);
-                                $('#article').html(html);
-                                var totalPages = Math.ceil(res.datas.total * 1.0 / res.datas.pageSize);
-                                setLatestArticleBootstrapPaginator($('#paging'), res.datas.pageNum, totalPages, res.datas.pageSize)
-                            }
-                        }
-                    });
-
-                }
-            });
-        }
         function updCollectStatus(item) {
             $item = $(item);
-
-            if($item.hasClass('glyphicon-star')){
-                $item.removeClass('glyphicon-star');
-                $item.addClass("glyphicon-star-empty");
-                swalInfoAutoClose("取消收藏！", 1200);
-            }else{
-                $item.removeClass('glyphicon-star-empty');
-                $item.addClass("glyphicon-star");
-                swalInfoAutoClose("收藏成功！", 1200);
-            }
+            postHttpAsync(address_of_the_interface.url_base + address_of_the_interface.url_project_article.base + address_of_the_interface.url_project_article.url_updBlogCollect
+                , {id: $item[0].getAttribute("value")}, function (resData) {
+                    swalInfoAutoClose(resData, 1200);
+                    if($item.hasClass('glyphicon-star')){
+                        $item.removeClass('glyphicon-star');
+                        $item.addClass("glyphicon-star-empty");
+                    }else{
+                        $item.removeClass('glyphicon-star-empty');
+                        $item.addClass("glyphicon-star");
+                    }
+                });
 
         }
 
@@ -162,7 +117,7 @@
             <time class="time"><i class="glyphicon glyphicon-time"></i> <%=list[i].time%></time>
             <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共 <%=list[i].viewingTimes%>人围观</span>
 
-                <a class="comment"><i onclick="updCollectStatus(this)" class="glyphicon glyphicon-star-empty"></i></a>
+                <a class="comment"><i value="<%=list[i].id%>" onclick="updCollectStatus(this)" class="glyphicon glyphicon-star-empty"></i></a>
         </p>
         <p class="note"><%=list[i].description%></p>
     </article>

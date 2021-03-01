@@ -14,7 +14,8 @@ const announcement = {
         "            </div>\n" +
         "            <div role=\"tabpanel\" class=\"tab-pane centre\" id=\"centre\">\n" +
         "              <h4>需要登录才能进入会员中心</h4>\n" +
-        "              <p> <a href=\"javascript:;\" class=\"btn btn-primary\" id=\"announcementLogin\">立即登录</a> <a href=\"javascript:;\" class=\"btn btn-default\" id=\"announcementRegister\">现在注册</a> </p>\n" +
+        "              <p> <a href=\"javascript:;\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#loginModal\" id=\"announcementLogin\">立即登录</a> <a href=\"javascript:;\" class=\"btn btn-default\" data-toggle=\"modal\"\n" +
+        "                                           data-target=\"#registerModal\" id=\"announcementRegister\">现在注册</a> </p>\n" +
         "            </div>\n" +
         "            <div role=\"tabpanel\" class=\"tab-pane contact\" id=\"contact\">\n" +
         "              <h2>Email:<br />\n" +

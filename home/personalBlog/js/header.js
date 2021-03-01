@@ -3,7 +3,7 @@ const header = {
         "  <div class=\"layui-container\">\n" +
         "    <!-- logo -->\n" +
         "    <div class=\"nav-logo\">\n" +
-        "      <a href=\"home.html\">\n" +
+        "      <a href=\"../home.html\">\n" +
         "        <img src=\"res/static/img/logoko.png\" width=\"200px\" height=\"80px\" alt=\"个人博客\">\n" +
         "      </a>\n" +
         "    </div>\n" +
