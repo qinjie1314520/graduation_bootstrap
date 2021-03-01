@@ -192,7 +192,9 @@ const address_of_the_interface = {
         url_detailsRecommend: "/article/blog/detailsRecommend",
         url_comment: "/article/blog/comment",
         url_selArticlePrograma: "/article/home/selArticlePrograma",
-        url_selArticleTypePrograma: "/article/home/selArticleTypePrograma"
+        url_selArticleTypePrograma: "/article/home/selArticleTypePrograma",
+        url_selCollectList: "/article/collect/selCollectList",
+        url_updBlogCollect: "/article/collect/updBlogCollect"
 
     },
     url_project_admin: {
@@ -208,6 +210,7 @@ const address_of_the_interface = {
         url_insLeaveWords: "/person-center/insLeaveWords",
         url_insSelfIntroduction: "/person-center/insSelfIntroduction",
         url_selUserInfo: "/user-center/selUserInfo",
+        url_updUserInfo: "/user-center/updUserInfo",
         url_updSelfIntroductionTitle: "/person-center/updSelfIntroduction"
     }
 };

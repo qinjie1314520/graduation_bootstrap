@@ -113,8 +113,8 @@ const announcement = {
                 "                        </div>\n" +
                 "                      <div class=\"row\">\n" +
                 "                        <p><a href='personalBlog/home.html?id="+userInfo.id+"' class=\"btn btn-primary\">我的博客</a>\n" +
-                "                          <a href=\"javascript:;\" class=\"btn btn-default\">收藏夹</a>\n" +
-                "                          <a href=\"javascript:;\" class=\"btn btn-default\">历史记录</a>\n" +
+                "                          <a href='personalBlog/person-center.html?id="+userInfo.id+"&selected=collect' class=\"btn btn-default\">收藏夹</a>\n" +
+                "                          <a href='personalBlog/person-center.html?id="+userInfo.id+"&selected=history' class=\"btn btn-default\">历史记录</a>\n" +
                 "                        </p>\n" +
                 "                      </div>");
         })

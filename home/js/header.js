@@ -40,7 +40,7 @@ const header = {
         "      </div>\n" +
         "      <div class=\"collapse navbar-collapse\" id=\"header-navbar\">\n" +
         "        <ul class=\"nav navbar-nav navbar-right\">\n" +
-        "          <li class=\"hidden-index active\"><a data-cont=\"异清轩首页\" href=\"index.html\">roger首页</a></li>\n" +
+        "          <li class=\"hidden-index active\"><a data-cont=\"roger首页\" href=\"index.html\">roger首页</a></li>\n" +
         "        </ul>\n" +
         "        <form class=\"navbar-form visible-xs\" action=\"/Search\" method=\"post\">\n" +
         "          <div class=\"input-group\">\n" +

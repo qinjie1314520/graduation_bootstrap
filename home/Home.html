@@ -78,7 +78,20 @@
                 }
             });
         }
+        function updCollectStatus(item) {
+            $item = $(item);
 
+            if($item.hasClass('glyphicon-star')){
+                $item.removeClass('glyphicon-star');
+                $item.addClass("glyphicon-star-empty");
+                swalInfoAutoClose("取消收藏！", 1200);
+            }else{
+                $item.removeClass('glyphicon-star-empty');
+                $item.addClass("glyphicon-star");
+                swalInfoAutoClose("收藏成功！", 1200);
+            }
+
+        }
 
         //最新文章的请求参数
         var selLatestArticleDatas = {
@@ -149,8 +162,7 @@
             <time class="time"><i class="glyphicon glyphicon-time"></i> <%=list[i].time%></time>
             <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共 <%=list[i].viewingTimes%>人围观</span>
 
-            <a class="comment" href="article.html#comment"><i class="glyphicon glyphicon-comment"></i>
-                0个不明物体</a>
+                <a class="comment"><i onclick="updCollectStatus(this)" class="glyphicon glyphicon-star-empty"></i></a>
         </p>
         <p class="note"><%=list[i].description%></p>
     </article>
@@ -165,7 +177,7 @@
     <div class="content-wrap">
         <div class="content">
             <div class="jumbotron">
-                <h1>欢迎访问异清轩博客</h1>
+                <h1>欢迎访问个人博客</h1>
                 <p>在这里可以看到前端技术，后端程序，网站内容管理系统等文章，还有我的程序人生！</p>
             </div>
             <div id="focusslide" class="carousel slide" data-ride="carousel">
