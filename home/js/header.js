@@ -36,7 +36,7 @@ const header = {
         "        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n" +
         "                data-target=\"#header-navbar\" aria-expanded=\"false\"><span class=\"sr-only\"></span> <span\n" +
         "                class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span></button>\n" +
-        "        <h1 class=\"logo hvr-bounce-in\"><a href=\"\" title=\"\"><img src=\"../images/logoko.png\" alt=\"\"></a></h1>\n" +
+        "        <h1 class=\"logo hvr-bounce-in\"><a href='Home.html' title=\"\"><img src=\"../images/logoko.png\" alt=\"\"></a></h1>\n" +
         "      </div>\n" +
         "      <div class=\"collapse navbar-collapse\" id=\"header-navbar\">\n" +
         "        <ul class=\"nav navbar-nav navbar-right\">\n" +

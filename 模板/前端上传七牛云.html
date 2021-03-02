@@ -7,9 +7,10 @@
 <body>
 <input type="file" name="image" id="file">
 <input type="button" id="upload" value="upload">
+<input type="button" id="unUpload" value="unUpload">
 </body>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-<script src="../js/qiniu.min.js"></script>
+<script src="../js/qiniu.min1.js"></script>
 
 
 <script>
@@ -47,7 +48,7 @@
         }
     }
 
-    var qiniuToken = "wytNNbpW3l-EjoG3tI43MKEpqkhjtDX7diwR9B8C:ycIiDA2ZFN_fnPOz2KQYPZHJXfs=:eyJzY29wZSI6ImRhdGEtbWVkaWEiLCJkZWFkbGluZSI6MTYxNDU5Mzc1MH0="
+    var qiniuToken = "wytNNbpW3l-EjoG3tI43MKEpqkhjtDX7diwR9B8C:Vw8TzEaFihN7rtXvhQEfATxYqIA=:eyJzY29wZSI6ImRhdGEtbWVkaWEiLCJkZWFkbGluZSI6MTYxNDY2NzMzMH0="
 
     // 七牛token
     $("#upload").click(function () {
@@ -86,8 +87,6 @@
             fname: "",
             //用来放置自定义变量
             params: {},
-            //限制上传文件类型
-            "mime-type": [{title : "Image files", extensions : "jpg,gif,png"}]
         };
         var config = {
             // useCdnDomain: true,
@@ -97,7 +96,9 @@
         // 上传开始
         var subscription = observable.subscribe(observer);
         // 取消上传
-        // subscription.unsubscribe();
+        $("#unUpload").click(function () {
+            subscription.unsubscribe();
+        })
     })
 </script>
 </html>

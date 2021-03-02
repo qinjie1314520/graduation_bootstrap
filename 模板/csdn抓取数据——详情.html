@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+<link href="../css/csdn/markdown_views-d7a94ec6ab.css" rel="stylesheet">
+<link href="../css/csdn/style-80ad9b4f5b.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/csdn/atom-one-light.css">
+<div id="content_views" class="markdown_views prism-atom-one-dark">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+    </svg>
+
+    <p>打印图形<br /> 时间限制: 1.0s 内存限制: 512.0MB<br /> 【问题描述】<br /> 小明刚学习完条件语句和循环语句&#xff0c;并且也打印了许多图形&#xff0c;比如菱形或者三角形。然后他突发奇想要打印一个六芒星&#xff0c;果然&#xff0c;他用了半小时就把六芒星给打印出来了&#xff0c;你能比他更快吗&#xff1f;小明为你加油哦&#xff01;<br /> 【输入格式】<br /> 输入一行包含一个整数 n。<br /> 【输出格式】<br /> 输出一个六芒星&#xff0c;表示满足题意的图形。<br /> 【样例输入】<br /> 3<br /> 4<br /> 【样例输出】<br /> <img src="https://img-blog.csdnimg.cn/20210228172621888.png#pic_center" alt="在这里插入图片描述" /></p>
+    <p><img src="https://img-blog.csdnimg.cn/20210228172640437.png#pic_center" alt="在这里插入图片描述" /></p>
+    <p>【评测用例规模与约定】<br /> 对于所有评测用例&#xff0c;1 ≤ n ≤ 20。</p>
+    <pre><code class="prism language-java"><span class="token keyword">class</span> <span class="token class-name">Main</span><span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">static</span> <span class="token keyword">char</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span>array<span class="token operator">&#61;</span><span class="token keyword">new</span> <span class="token class-name">char</span><span class="token punctuation">[</span><span class="token number">20</span><span class="token operator">*</span><span class="token number">20</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		Scanner sc<span class="token operator">&#61;</span><span class="token keyword">new</span> <span class="token class-name">Scanner</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">while</span><span class="token punctuation">(</span>sc<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">int</span> n<span class="token operator">&#61;</span>sc<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> length<span class="token operator">&#61;</span><span class="token punctuation">(</span><span class="token punctuation">(</span>n<span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> width<span class="token operator">&#61;</span>n<span class="token operator">*</span><span class="token number">3</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
+		<span class="token function">clear</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">f</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">print</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> k<span class="token operator">&#61;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> mid1<span class="token operator">&#61;</span>length<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> mid2<span class="token operator">&#61;</span>length<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>
+		<span class="token keyword">while</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span>width<span class="token operator">&amp;&amp;</span>mid2<span class="token operator">&gt;&#61;</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+			array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>mid1<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
+			array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>mid2<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
+			array<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>mid1<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
+			array<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>mid2<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
+			mid1<span class="token operator">&#43;&#43;</span><span class="token punctuation">;</span>
+			mid2<span class="token operator">--</span><span class="token punctuation">;</span>
+			i<span class="token operator">&#43;&#43;</span><span class="token punctuation">;</span>
+			k<span class="token operator">--</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>
+		<span class="token keyword">while</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span>length<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+			array<span class="token punctuation">[</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
+			array<span class="token punctuation">[</span>width<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
+			i<span class="token operator">&#43;&#61;</span><span class="token number">2</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>j<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+				System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+			System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">clear</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>j<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+				array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39; &#39;</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>
+</body>
+
+
+</html>
