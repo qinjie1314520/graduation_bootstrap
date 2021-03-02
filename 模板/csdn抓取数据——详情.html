@@ -5,70 +5,1000 @@
     <title></title>
 </head>
 <body>
+<link rel="stylesheet" type="text/css" href="../css/csdn/detail_enter-abc53f1aad.min.css">
+<link rel="stylesheet" type="text/css" href="../css/csdn/skin-ink-a11cfdaac3.min.css">
+<link rel="stylesheet" type="text/css" href="../css/csdn/sandalstrap.min.css">
+<link rel="stylesheet" href="../css/csdn/blog_code-01256533b5.min.css">
+<link rel="stylesheet" href="../css/csdn/chart-3456820cac.css" />
+<link rel="stylesheet" href="../css/csdn/ck_htmledit_views-b5506197d8.css">
 <link href="../css/csdn/markdown_views-d7a94ec6ab.css" rel="stylesheet">
-<link href="../css/csdn/style-80ad9b4f5b.css" rel="stylesheet">
+<link href="../css/csdn/style-a0c38f4093.css" rel="stylesheet">
 <link rel="stylesheet" href="../css/csdn/atom-one-light.css">
-<div id="content_views" class="markdown_views prism-atom-one-dark">
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
-    </svg>
 
-    <p>打印图形<br /> 时间限制: 1.0s 内存限制: 512.0MB<br /> 【问题描述】<br /> 小明刚学习完条件语句和循环语句&#xff0c;并且也打印了许多图形&#xff0c;比如菱形或者三角形。然后他突发奇想要打印一个六芒星&#xff0c;果然&#xff0c;他用了半小时就把六芒星给打印出来了&#xff0c;你能比他更快吗&#xff1f;小明为你加油哦&#xff01;<br /> 【输入格式】<br /> 输入一行包含一个整数 n。<br /> 【输出格式】<br /> 输出一个六芒星&#xff0c;表示满足题意的图形。<br /> 【样例输入】<br /> 3<br /> 4<br /> 【样例输出】<br /> <img src="https://img-blog.csdnimg.cn/20210228172621888.png#pic_center" alt="在这里插入图片描述" /></p>
-    <p><img src="https://img-blog.csdnimg.cn/20210228172640437.png#pic_center" alt="在这里插入图片描述" /></p>
-    <p>【评测用例规模与约定】<br /> 对于所有评测用例&#xff0c;1 ≤ n ≤ 20。</p>
-    <pre><code class="prism language-java"><span class="token keyword">class</span> <span class="token class-name">Main</span><span class="token punctuation">{<!-- --></span>
-	<span class="token keyword">static</span> <span class="token keyword">char</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span>array<span class="token operator">&#61;</span><span class="token keyword">new</span> <span class="token class-name">char</span><span class="token punctuation">[</span><span class="token number">20</span><span class="token operator">*</span><span class="token number">20</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-		Scanner sc<span class="token operator">&#61;</span><span class="token keyword">new</span> <span class="token class-name">Scanner</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token keyword">while</span><span class="token punctuation">(</span>sc<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-		<span class="token keyword">int</span> n<span class="token operator">&#61;</span>sc<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token keyword">int</span> length<span class="token operator">&#61;</span><span class="token punctuation">(</span><span class="token punctuation">(</span>n<span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-		<span class="token keyword">int</span> width<span class="token operator">&#61;</span>n<span class="token operator">*</span><span class="token number">3</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
-		<span class="token function">clear</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token function">f</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token function">print</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<!--<div id="content_views" class="markdown_views prism-atom-one-dark">-->
+<!--    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">-->
+<!--        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>-->
+<!--    </svg>-->
+
+<!--    <p>打印图形<br /> 时间限制: 1.0s 内存限制: 512.0MB<br /> 【问题描述】<br /> 小明刚学习完条件语句和循环语句&#xff0c;并且也打印了许多图形&#xff0c;比如菱形或者三角形。然后他突发奇想要打印一个六芒星&#xff0c;果然&#xff0c;他用了半小时就把六芒星给打印出来了&#xff0c;你能比他更快吗&#xff1f;小明为你加油哦&#xff01;<br /> 【输入格式】<br /> 输入一行包含一个整数 n。<br /> 【输出格式】<br /> 输出一个六芒星&#xff0c;表示满足题意的图形。<br /> 【样例输入】<br /> 3<br /> 4<br /> 【样例输出】<br /> <img src="https://img-blog.csdnimg.cn/20210228172621888.png#pic_center" alt="在这里插入图片描述" /></p>-->
+<!--    <p><img src="https://img-blog.csdnimg.cn/20210228172640437.png#pic_center" alt="在这里插入图片描述" /></p>-->
+<!--    <p>【评测用例规模与约定】<br /> 对于所有评测用例&#xff0c;1 ≤ n ≤ 20。</p>-->
+<!--    <pre><code class="prism language-java"><span class="token keyword">class</span> <span class="token class-name">Main</span><span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--	<span class="token keyword">static</span> <span class="token keyword">char</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span>array<span class="token operator">&#61;</span><span class="token keyword">new</span> <span class="token class-name">char</span><span class="token punctuation">[</span><span class="token number">20</span><span class="token operator">*</span><span class="token number">20</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>-->
+<!--	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--		Scanner sc<span class="token operator">&#61;</span><span class="token keyword">new</span> <span class="token class-name">Scanner</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>-->
+<!--		<span class="token keyword">while</span><span class="token punctuation">(</span>sc<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--		<span class="token keyword">int</span> n<span class="token operator">&#61;</span>sc<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>-->
+<!--		<span class="token keyword">int</span> length<span class="token operator">&#61;</span><span class="token punctuation">(</span><span class="token punctuation">(</span>n<span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>-->
+<!--		<span class="token keyword">int</span> width<span class="token operator">&#61;</span>n<span class="token operator">*</span><span class="token number">3</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>-->
+<!--		<span class="token function">clear</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>-->
+<!--		<span class="token function">f</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>-->
+<!--		<span class="token function">print</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>length<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>-->
+<!--	<span class="token punctuation">}</span>-->
+<!--		<span class="token punctuation">}</span>-->
+<!--	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--		<span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>-->
+<!--		<span class="token keyword">int</span> k<span class="token operator">&#61;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>-->
+<!--		<span class="token keyword">int</span> mid1<span class="token operator">&#61;</span>length<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>-->
+<!--		<span class="token keyword">int</span> mid2<span class="token operator">&#61;</span>length<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>-->
+<!--		<span class="token keyword">while</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span>width<span class="token operator">&amp;&amp;</span>mid2<span class="token operator">&gt;&#61;</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--			array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>mid1<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>-->
+<!--			array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>mid2<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>-->
+<!--			array<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>mid1<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>-->
+<!--			array<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>mid2<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>-->
+<!--			mid1<span class="token operator">&#43;&#43;</span><span class="token punctuation">;</span>-->
+<!--			mid2<span class="token operator">&#45;&#45;</span><span class="token punctuation">;</span>-->
+<!--			i<span class="token operator">&#43;&#43;</span><span class="token punctuation">;</span>-->
+<!--			k<span class="token operator">&#45;&#45;</span><span class="token punctuation">;</span>-->
+<!--		<span class="token punctuation">}</span>-->
+<!--		i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>-->
+<!--		<span class="token keyword">while</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span>length<span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--			array<span class="token punctuation">[</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>-->
+<!--			array<span class="token punctuation">[</span>width<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>-->
+<!--			i<span class="token operator">&#43;&#61;</span><span class="token number">2</span><span class="token punctuation">;</span>-->
+<!--		<span class="token punctuation">}</span>-->
+<!--	<span class="token punctuation">}</span>-->
+<!--	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>j<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--				System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>-->
+<!--			<span class="token punctuation">}</span>-->
+<!--			System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>-->
+<!--		<span class="token punctuation">}</span>-->
+<!--	<span class="token punctuation">}</span>-->
+<!--	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">clear</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>j<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{&lt;!&ndash; &ndash;&gt;</span>-->
+<!--				array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39; &#39;</span><span class="token punctuation">;</span>-->
+<!--			<span class="token punctuation">}</span>-->
+<!--		<span class="token punctuation">}</span>-->
+<!--	<span class="token punctuation">}</span>-->
+<!--<span class="token punctuation">}</span>-->
+<!--</code></pre>-->
+<!--</div>-->
+
+
+
+
+<div id="article_content" class="article_content clearfix">
+	<link rel="stylesheet"
+		  href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-b5506197d8.css">
+	<div id="content_views" class="markdown_views prism-atom-one-dark">
+		<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+			<path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block"
+				  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+		</svg>
+		<p><em>这次是2021年01月19日的学习成果&#xff0c;总结于此&#xff0c;以便于之后的学习查漏补缺</em><br/></p>
+		<div class="toc">
+			<h3>目录</h3>
+			<ul>
+				<li><a href="#_2">多态&#xff08;重点&#xff09;</a></li>
+				<li>
+					<ul>
+						<li><a href="#_3">多态概述</a></li>
+						<li><a href="#_16">多态的实现条件</a></li>
+						<li><a href="#_201">多态实现基础</a></li>
+						<li><a href="#_207">多态的作用</a></li>
+						<li><a href="#_211">多态的总结</a></li>
+					</ul>
+				</li>
+				<li><a href="#_224">多态的转型</a></li>
+				<li>
+					<ul>
+						<li><a href="#upcasting_228">向上转型upcasting</a></li>
+						<li><a href="#downcasting_252">向下转型downcasting</a></li>
+						<li>
+							<ul>
+								<li><a href="#_277">转型实例&#xff1a;</a></li>
+							</ul>
+						</li>
+						<li><a href="#_287">类型转换的重点:</a></li>
+					</ul>
+				</li>
+				<li><a href="#instanceof_293">多态与instanceof</a></li>
+				<li><a href="#_313">多态的应用场景</a></li>
+				<li>
+					<ul>
+						<li><a href="#_314">基于继承的多态</a></li>
+						<li><a href="#_316">基于接口的多态</a></li>
+						<li><a href="#_334">函数输入参数的多态</a></li>
+						<li><a href="#_360">函数返回值的多态</a></li>
+					</ul>
+				</li>
+				<li><a href="#_388">内部类</a></li>
+				<li>
+					<ul>
+						<li><a href="#1_389">1、概述</a></li>
+						<li><a href="#2_394">2、成员内部类</a></li>
+						<li>
+							<ul>
+								<li><a href="#1_396">(1)定义成员内部类</a></li>
+								<li><a href="#2_446">(2)成员内部类的使用</a></li>
+							</ul>
+						</li>
+						<li><a href="#_472">小结:</a></li>
+					</ul>
+				</li>
+				<li><a href="#5_479">5、匿名对象(掌握)</a></li>
+				<li><a href="#6_490">6、匿名内部类(掌握)</a></li>
+			</ul>
+		</div>
+		<p></p>
+		<h1><a id="_2"></a>多态&#xff08;重点&#xff09;</h1>
+		<h2><a id="_3"></a>多态概述</h2>
+		<p>生活实例</p>
+		<p>实例1&#xff1a;<br/> 水果&#xff1a;苹果&#xff0c;香蕉&#xff0c;西瓜</p>
+		<p>实例2&#xff1a;<br/> 动物&#xff1a;老虎&#xff0c;狮子&#xff0c;大象</p>
+		<p>实例3&#xff1a;<br/> 动物叫&#xff1a;猫叫&#xff0c;牛叫&#xff0c;羊叫</p>
+		<p>总结&#xff1a;多态即为多种形态&#xff0c;状态</p>
+		<h2><a id="_16"></a>多态的实现条件</h2>
+		<p>Java实现多态的必要条件:<strong>继承、重写</strong>。</p>
+		<p>当编译时类型和运行时类型不一致&#xff0c;就会出现多态(Polymorphism)</p>
+		<p>创建人的类&#xff08;父类&#xff09;</p>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span
+				class="token class-name">Person</span> <span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> age<span
+					class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token function">Person</span><span class="token punctuation">(</span>String name<span
+					class="token punctuation">,</span> <span class="token keyword">int</span> age<span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>name <span
+					class="token operator">&#61;</span> name<span class="token punctuation">;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">&#61;</span> age<span
+					class="token punctuation">;</span>
 	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token function">Person</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getName</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">return</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span
+					class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>name <span
+					class="token operator">&#61;</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span
+					class="token function">getAge</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">return</span> age<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span
+					class="token punctuation">(</span><span class="token keyword">int</span> age<span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">&#61;</span> age<span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">eat</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;人吃饭&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">sleep</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;人睡觉&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+		<p>创建男孩类&#xff08;子类&#xff09;</p>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span
+				class="token class-name">Boy</span> <span class="token keyword">extends</span> <span
+				class="token class-name">Person</span><span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">private</span> String ID<span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token function">Boy</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token function">Boy</span><span
+					class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span
+					class="token keyword">int</span> age<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">(</span>name<span
+					class="token punctuation">,</span> age<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token function">Boy</span><span
+					class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span
+					class="token keyword">int</span> age<span class="token punctuation">,</span> String iD<span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">(</span>name<span
+					class="token punctuation">,</span> age<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		ID <span class="token operator">&#61;</span> iD<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">play</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;男孩去打游戏&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> String <span class="token function">getName</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">return</span> <span class="token keyword">super</span><span
+					class="token punctuation">.</span><span class="token function">getName</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span
+					class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">setName</span><span
+					class="token punctuation">(</span>name<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span
+					class="token function">getAge</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">return</span> <span class="token keyword">super</span><span
+					class="token punctuation">.</span><span class="token function">getAge</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span
+					class="token punctuation">(</span><span class="token keyword">int</span> age<span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">setAge</span><span
+					class="token punctuation">(</span>age<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">eat</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;男孩在狼吞虎咽地吃饭&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">sleep</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;男孩听着音乐睡觉&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+		<p>创建女孩类&#xff08;子类&#xff09;</p>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span
+				class="token class-name">Girl</span> <span class="token keyword">extends</span> <span
+				class="token class-name">Person</span><span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">private</span> String number<span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token function">Girl</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token function">Girl</span><span
+					class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span
+					class="token keyword">int</span> age<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">(</span>name<span
+					class="token punctuation">,</span> age<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token function">Girl</span><span
+					class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span
+					class="token keyword">int</span> age<span class="token punctuation">,</span> String number<span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">(</span>name<span
+					class="token punctuation">,</span> age<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>number <span
+					class="token operator">&#61;</span> number<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">buy</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;女孩在买东西&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> String <span class="token function">getName</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">return</span> <span class="token keyword">super</span><span
+					class="token punctuation">.</span><span class="token function">getName</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span
+					class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">setName</span><span
+					class="token punctuation">(</span>name<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span
+					class="token function">getAge</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">return</span> <span class="token keyword">super</span><span
+					class="token punctuation">.</span><span class="token function">getAge</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span
+					class="token punctuation">(</span><span class="token keyword">int</span> age<span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">setAge</span><span
+					class="token punctuation">(</span>age<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">eat</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;女孩在斯文的吃饭&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">sleep</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;女孩在安静地睡觉&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+		<p>测试类</p>
+		<pre><code class="prism language-java"><span class="token keyword">import</span> java<span
+				class="token punctuation">.</span>awt<span class="token punctuation">.</span>GridBagConstraints<span
+				class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span
+					class="token class-name">Test</span> <span class="token punctuation">{<!-- --></span>
+
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span
+					class="token keyword">void</span> <span class="token function">main</span><span
+					class="token punctuation">(</span>String<span class="token punctuation">[</span><span
+					class="token punctuation">]</span> args<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		Person person1 <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Person</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		person1<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;-------------&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		Boy boy <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Boy</span><span class="token punctuation">(</span><span
+					class="token string">&#34;小明&#34;</span><span class="token punctuation">,</span> <span
+					class="token number">20</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		boy<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		boy<span class="token punctuation">.</span><span class="token function">sleep</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		boy<span class="token punctuation">.</span><span class="token function">play</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;-------------&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		Girl girl <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Girl</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		girl<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		girl<span class="token punctuation">.</span><span class="token function">sleep</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		girl<span class="token punctuation">.</span><span class="token function">buy</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;-------------&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		Person person2 <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Boy</span><span class="token punctuation">(</span><span
+					class="token string">&#34;李华&#34;</span><span class="token punctuation">,</span><span
+					class="token number">21</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		person2<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		person2<span class="token punctuation">.</span><span class="token function">sleep</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;-------------&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		Person person3 <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Girl</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		person3<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		person3<span class="token punctuation">.</span><span class="token function">sleep</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+		<p>运行结果<br/>
+			<img src="https://img-blog.csdnimg.cn/20210227215630609.png" alt="在这里插入图片描述"/></p>
+		<h2><a id="_201"></a>多态实现基础</h2>
+		<p>父类声明的变量可以引用所有子类的对象&#xff0c;这是多态实现的基础。</p>
+		<p>我们<strong>只有在</strong> <em>运行</em>
+			<strong>的时候才会知道引用变量所指向的具体实例对象。</strong></p>
+		<h2><a id="_207"></a>多态的作用</h2>
+		<p>把不同的子类对象都当作父类来看&#xff0c;可以屏蔽不同子类对象之间的差异&#xff0c;写出通用的代码&#xff0c;做出<strong>通用的编程</strong>&#xff0c;以适应需求的不断变化。简单的说&#xff0c;<strong>就是用父类或接口的引用变量指向子类的对象</strong>。
+		</p>
+		<h2><a id="_211"></a>多态的总结</h2>
+		<p>在涉及多态的编程中&#xff0c;请注意以下细节:</p>
+		<p>1、静态方法<br/> 静态方法不能被重写&#xff0c;所以静态方法也没有多态性.</p>
+		<p>2、 成员变量<br/> 成员变量不具备多态性。成员变量的值取决于引用所属的类</p>
+		<p>3、成员方法<br/> 编译时:检查引用变量所属类中是否有所调用的方法。运行时:调用实际对象所属类中的重写方法。</p>
+		<h1><a id="_224"></a>多态的转型</h1>
+		<p>在多变编程中涉及到引用数据类型之间的转换。</p>
+		<h2><a id="upcasting_228"></a>向上转型upcasting</h2>
+		<p>向上转型就是<strong>子类转父类</strong>&#xff0c;这是由系统自动完成。</p>
+		<p>请注意:一个引用类型变量如果声明为父类的类型&#xff0c;但实际引用的是子类对象&#xff0c;那么该变量就<strong>不能再访问子类中特有的属性和方法</strong>
+		</p>
+		<pre><code class="prism language-java">Person person2 <span class="token operator">&#61;</span> <span
+				class="token keyword">new</span> <span class="token class-name">Boy</span><span
+				class="token punctuation">(</span><span class="token string">&#34;李华&#34;</span><span
+				class="token punctuation">,</span><span class="token number">21</span><span
+				class="token punctuation">)</span><span class="token punctuation">;</span>
+		person2<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		person2<span class="token punctuation">.</span><span class="token function">sleep</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token comment">//The method play() is undefined for the type Person</span>
+		<span class="token comment">//play这个方法没有为Person类定义</span>
+		<span class="token comment">//person2.play();</span>
+
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;-------------&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		Person person3 <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Girl</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		person3<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		person3<span class="token punctuation">.</span><span class="token function">sleep</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token comment">//The method buy() is undefined for the type Person</span>
+		<span class="token comment">//buy这个方法没有为Person类定义</span>
+		<span class="token comment">//person3.buy();</span>
+</code></pre>
+		<p>那么&#xff0c;怎么解决&#xff0c;子类转为父类无法调用自己的方法&#xff0c;这个问题呢&#xff0c;使用先下面的<strong>强制类型转换符 ()</strong>
+		</p>
+		<h2><a id="downcasting_252"></a>向下转型downcasting</h2>
+		<p>向下转型就是父类转子类&#xff0c;此时需要使用<strong>强制类型转换符 ()</strong>
+		</p>
+		<pre><code class="prism language-java">Person person2 <span class="token operator">&#61;</span> <span
+				class="token keyword">new</span> <span class="token class-name">Boy</span><span
+				class="token punctuation">(</span><span class="token string">&#34;李华&#34;</span><span
+				class="token punctuation">,</span><span class="token number">21</span><span
+				class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//父类对象强转为子类对象</span>
+		Boy boy1 <span class="token operator">&#61;</span> <span class="token punctuation">(</span>Boy<span
+					class="token punctuation">)</span> person2<span class="token punctuation">;</span>
+		boy1<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		boy1<span class="token punctuation">.</span><span class="token function">sleep</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token comment">//The method play() is undefined for the type Person</span>
+		boy1<span class="token punctuation">.</span><span class="token function">play</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;-------------&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		Person person3 <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Girl</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//父类对象强转为子类对象</span>
+		Girl girl1 <span class="token operator">&#61;</span> <span class="token punctuation">(</span>Girl<span
+					class="token punctuation">)</span>person3<span class="token punctuation">;</span>
+		girl1<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		girl1<span class="token punctuation">.</span><span class="token function">sleep</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token comment">//The method buy() is undefined for the type Person</span>
+		girl1<span class="token punctuation">.</span><span class="token function">buy</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+</code></pre>
+		<p>运行结果&#xff1a;<br/>
+			<img src="https://img-blog.csdnimg.cn/20210227222404606.png" alt="在这里插入图片描述"/></p>
+		<h3><a id="_277"></a>转型实例&#xff1a;</h3>
+		<pre><code class="prism language-java">		<span class="token comment">//父类引用指向子类对象</span>
+		Person person4 <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Boy</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		person4<span class="token punctuation">.</span><span class="token function">eat</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token comment">//Error code</span>
+		<span class="token comment">//person4.play();</span>
+</code></pre>
+		<h2><a id="_287"></a>类型转换的重点:</h2>
+		<p><strong>1、弄清楚继承关系、谁是父类谁是子类</strong></p>
+		<p><strong>2、关键点在于创建对象时调用的是谁的构造函数</strong></p>
+		<h1><a id="instanceof_293"></a>多态与instanceof</h1>
+		<p>在多态编程中可以通过instanceof判断对象到底属于哪个确切的类型</p>
+		<pre><code class="prism language-java"><span class="token keyword">boolean</span> result <span
+				class="token operator">&#61;</span> boy <span class="token keyword">instanceof</span> <span
+				class="token class-name">Boy</span><span class="token punctuation">;</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span>result<span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		result <span class="token operator">&#61;</span> person1 <span class="token keyword">instanceof</span> <span
+					class="token class-name">Person</span><span class="token punctuation">;</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span>result<span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+		<p>运行结果&#xff1a;<br/>
+			<img src="https://img-blog.csdnimg.cn/2021022722510117.png" alt="在这里插入图片描述"/><br/> 运用if语句判断&#xff0c;避免
+			子类转为父类无法调用自己的方法</p>
+		<pre><code class="prism language-java">Person person2 <span class="token operator">&#61;</span> <span
+				class="token keyword">new</span> <span class="token class-name">Boy</span><span
+				class="token punctuation">(</span><span class="token string">&#34;李华&#34;</span><span
+				class="token punctuation">,</span><span class="token number">21</span><span
+				class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span>person2 <span
+					class="token keyword">instanceof</span> <span class="token class-name">Boy</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+			<span class="token punctuation">(</span><span class="token punctuation">(</span>Boy<span
+					class="token punctuation">)</span> person2<span class="token punctuation">)</span><span
+					class="token punctuation">.</span><span class="token function">play</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
 		<span class="token punctuation">}</span>
-	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-		<span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>
-		<span class="token keyword">int</span> k<span class="token operator">&#61;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
-		<span class="token keyword">int</span> mid1<span class="token operator">&#61;</span>length<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>
-		<span class="token keyword">int</span> mid2<span class="token operator">&#61;</span>length<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">;</span>
-		<span class="token keyword">while</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span>width<span class="token operator">&amp;&amp;</span>mid2<span class="token operator">&gt;&#61;</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-			array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>mid1<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
-			array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>mid2<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
-			array<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>mid1<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
-			array<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>mid2<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
-			mid1<span class="token operator">&#43;&#43;</span><span class="token punctuation">;</span>
-			mid2<span class="token operator">--</span><span class="token punctuation">;</span>
-			i<span class="token operator">&#43;&#43;</span><span class="token punctuation">;</span>
-			k<span class="token operator">--</span><span class="token punctuation">;</span>
+</code></pre>
+		<h1><a id="_313"></a>多态的应用场景</h1>
+		<h2><a id="_314"></a>基于继承的多态</h2>
+		<p>多个子类对同一方法的重写&#xff0c;可以在运行时表现出不同的行为</p>
+		<h2><a id="_316"></a>基于接口的多态</h2>
+		<p>一个接口可以有多
+			个实现类。所以&#xff0c;<strong>多个实现类对接口中同一方法的重写&#xff0c;可以在运行时表现出不同的行为</strong>。
+		</p>
+		<p>场景: 接口名 变量名 &#61; new 类名()</p>
+		<pre><code class="prism language-java">	MyClass myClass <span class="token operator">&#61;</span> <span
+				class="token keyword">new</span> <span class="token class-name">MyClass</span><span
+				class="token punctuation">(</span><span class="token punctuation">)</span><span
+				class="token punctuation">;</span>
+
+	MyInterface myInterface <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">MyClass</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+		<p>注意:命名规范&#xff0c;接口名 —&gt; 接口名Impl</p>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span
+				class="token class-name">MyInterfaceImpl</span> <span class="token keyword">implements</span> <span
+				class="token class-name">MyInterface</span> <span class="token punctuation">{<!-- --></span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+		<h2><a id="_334"></a>函数输入参数的多态</h2>
+		<p>多态可以作为形参&#xff0c;接受范围更广的对象&#xff0c;接受的参数更加灵活
+		</p>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span
+				class="token keyword">void</span> <span class="token function">main</span><span
+				class="token punctuation">(</span>String<span class="token punctuation">[</span><span
+				class="token punctuation">]</span> args<span class="token punctuation">)</span> <span
+				class="token punctuation">{<!-- --></span>
+		Person person5 <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Person</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">test1</span><span class="token punctuation">(</span>person5<span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span
+					class="token keyword">void</span> <span class="token function">test1</span><span
+					class="token punctuation">(</span>Person person5<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span>person5 <span
+					class="token keyword">instanceof</span> <span class="token class-name">Boy</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+			<span class="token punctuation">(</span><span class="token punctuation">(</span>Boy<span
+					class="token punctuation">)</span> person5<span class="token punctuation">)</span><span
+					class="token punctuation">.</span><span class="token function">Play</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
 		<span class="token punctuation">}</span>
-		i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>
-		<span class="token keyword">while</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span>length<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-			array<span class="token punctuation">[</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
-			array<span class="token punctuation">[</span>width<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39;*&#39;</span><span class="token punctuation">;</span>
-			i<span class="token operator">&#43;&#61;</span><span class="token number">2</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">if</span><span class="token punctuation">(</span>person5 <span
+					class="token keyword">instanceof</span> <span class="token class-name">Girl</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+			<span class="token punctuation">(</span><span class="token punctuation">(</span>Girl<span
+					class="token punctuation">)</span> person5<span class="token punctuation">)</span><span
+					class="token punctuation">.</span><span class="token function">buy</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
 		<span class="token punctuation">}</span>
 	<span class="token punctuation">}</span>
-	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>j<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-				System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-			<span class="token punctuation">}</span>
-			System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token punctuation">}</span>
+</code></pre>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span
+				class="token keyword">void</span> <span class="token function">main</span><span
+				class="token punctuation">(</span>String<span class="token punctuation">[</span><span
+				class="token punctuation">]</span> args<span class="token punctuation">)</span> <span
+				class="token punctuation">{<!-- --></span>
+		MyInterface myInterface <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">MyInterfaceImpl</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">test2</span><span class="token punctuation">(</span>myInterface<span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">}</span>
-	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">clear</span><span class="token punctuation">(</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>width<span class="token operator">&#43;</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">&#61;</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>j<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
-				array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&#61;</span><span class="token string">&#39; &#39;</span><span class="token punctuation">;</span>
-			<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span
+					class="token keyword">void</span> <span class="token function">test2</span><span
+					class="token punctuation">(</span>MyInterface myInterface<span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+	<span class="token punctuation">}</span>
+</code></pre>
+		<h2><a id="_360"></a>函数返回值的多态</h2>
+		<p>多态可以作为返回值&#xff0c;接受范围更广的对象<br/> public 父类 方法名&#xff08;&#xff09;{
+			<!-- --><br/> return 父类对象&#xff1b;<br/> return 子类对象&#xff1b;<br/> }</p>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Person <span
+				class="token function">test1</span><span class="token punctuation">(</span><span
+				class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		Person person <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Person</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		Boy boy <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Boy</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		Girl girl <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Girl</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> girl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+</code></pre>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> MyInterface <span
+				class="token function">test3</span><span class="token punctuation">(</span><span
+				class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		MyInterfaceImpl myInterfaceImpl <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">MyInterfaceImpl</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> myInterfaceImpl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+</code></pre>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Fruit <span
+				class="token function">test4</span><span class="token punctuation">(</span><span
+				class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Apple</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+</code></pre>
+		<h1><a id="_388"></a>内部类</h1>
+		<h2><a id="1_389"></a>1、概述</h2>
+		<p><strong>在一个类的内部定义的类称为内部类&#xff0c;其实就是类定义的位置发生了变化。在类中定义的内部类叫成员内部类</strong>&#xff0c;在函数中定义的内部类叫局部内部类&#xff0c;使用static
+			修饰的成员内部类叫静态内部类。静态内部类使用很少&#xff0c;用的最多的是成员内部类。
+		</p>
+		<p>注意:内部类生产的class文件为 “
+			<strong>外部类$内部类</strong> ”&#xff0c;
+			它表明该内部类是属于哪个外部类的。</p>
+		<h2><a id="2_394"></a>2、成员内部类</h2>
+		<h3><a id="1_396"></a>(1)定义成员内部类</h3>
+		<p>1、成员内部类也是一个类&#xff0c;可以有自己的成员属性、成员方法。</p>
+		<p>2、成员内部类可以访问外部类的成员方法和成员属性。</p>
+		<p>3、<strong>在内部类中</strong>&#xff0c;this.name中的this表示内部类
+		</p>
+		<p>小结</p>
+		<p><strong>内部类访问外部类的字段:外部类类名.this.字段<br/> 内部类访问外部类的方法:外部类类名.this.方法.<br/> 内部类访问内部类字段: this.字段<br/> 内部类访问内部类方法:
+			this.方法</strong>
+		</p>
+		<pre><code class="prism language-java"><span class="token comment">//外部类</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span
+					class="token class-name">Forest</span> <span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> treeType<span
+					class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getTreeType</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">return</span> treeType<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTreeType</span><span
+					class="token punctuation">(</span><span class="token keyword">int</span> treeType<span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>treeType <span
+					class="token operator">&#61;</span> treeType<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span
+					class="token keyword">void</span> <span class="token function">printTree</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;好树&#xff01;好树啊&#xff01;&#34;</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">//内部类</span>
+	<span class="token keyword">class</span> <span class="token class-name">Animal</span><span
+					class="token punctuation">{<!-- --></span>
+		<span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+		<span class="token keyword">public</span> String <span class="token function">getName</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+			<span class="token keyword">return</span> name<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span
+					class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+			<span class="token keyword">this</span><span class="token punctuation">.</span>name <span
+					class="token operator">&#61;</span> name<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getTreeType</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+			<span class="token comment">//访问外部属性</span>
+			<span class="token keyword">int</span> type <span class="token operator">&#61;</span> Forest<span
+					class="token punctuation">.</span><span class="token keyword">this</span><span
+					class="token punctuation">.</span><span class="token function">getTreeType</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+			<span class="token keyword">return</span> type<span class="token punctuation">;</span>
 		<span class="token punctuation">}</span>
 	<span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+		<h3><a id="2_446"></a>(2)成员内部类的使用</h3>
+		<p>成员内部类必须<strong>依赖于外部类的对象</strong>。</p>
+		<p>所以&#xff0c;<strong>首先创建外部类&#xff0c;然后使用外部类的实例创建普通内部类</strong>。
+		</p>
+		<p>示例如下:</p>
+		<p>第一种写法&#xff1a;</p>
+		<pre><code class="prism language-java"><span class="token comment">//创建外部对象</span>
+		Forest forest <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Forest</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//创建内部类对象</span>
+		Forest<span class="token punctuation">.</span>Animal animal <span
+					class="token operator">&#61;</span> forest<span class="token punctuation">.</span><span
+					class="token keyword">new</span> <span class="token class-name">Animal</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token comment">//内部类对象调用方法</span>
+		<span class="token keyword">int</span> number <span class="token operator">&#61;</span> animal<span
+					class="token punctuation">.</span><span class="token function">getTreeType</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span>number<span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+		<p>第二种写法&#xff1a;</p>
+		<pre><code class="prism language-java">Forest<span class="token punctuation">.</span>Animal animal <span
+				class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+				class="token class-name">Forest</span><span class="token punctuation">(</span><span
+				class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">new</span> <span
+				class="token class-name">Animal</span><span class="token punctuation">(</span><span
+				class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> number <span class="token operator">&#61;</span> animal<span
+					class="token punctuation">.</span><span class="token function">getTreeType</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span>number<span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+		<h2><a id="_472"></a>小结:</h2>
+		<p><strong>内部类的访问特点:</strong></p>
+		<p><strong>1、内部类可以直接访问外部类的成员&#xff0c;包括外部类的私有对象。<br/> 2、外部类要访问内部类的成员&#xff0c;必须创建对象。</strong>
+		</p>
+		<h1><a id="5_479"></a>5、匿名对象(掌握)</h1>
+		<p>1、没有名字</p>
+		<p>2、仅能使用一次</p>
+		<pre><code class="prism language-java"><span class="token comment">//匿名对象&#xff0c;直接调用方法&#xff0c;只能用一次</span>
+		<span class="token keyword">new</span> <span class="token class-name">Forest</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">.</span><span class="token function">printTree</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+</code></pre>
+		<h1><a id="6_490"></a>6、匿名内部类(掌握)</h1>
+		<p>匿名内部类是-种特殊的内部类&#xff0c;它在语句内部定义&#xff0c;没有类名。例如:在GUI程序中作为事件处理函数。
+		</p>
+		<p><strong>匿名内部类必须继承-个父类或者是实现一个接口</strong>。语法格式:
+		</p>
+		<p><strong>new</strong> 父类或者接口(){
+			<!-- -->
+		</p>
+		<pre><code>			执行代码...
+</code></pre>
+		<p>};</p>
+		<p>每次创建匿名内部类的对象时,必须<strong>先定义</strong>匿名内部类,然后马上使用new<strong>创建对象</strong>。如果希望再次创建这个匿名内部类的对象&#xff0c;必须重定定义匿名内部类&#xff0c;即每个匿名内部类的定义只能使用一次。
+		</p>
+		<p>定义接口&#xff1a;</p>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span
+				class="token class-name">MyInterface1</span> <span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">void</span> <span class="token function">sayHello</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span
+				class="token class-name">MyInterface1Impl</span> <span class="token keyword">implements</span> <span
+				class="token class-name">MyInterface1</span><span class="token punctuation">{<!-- --></span>
+	<span class="token annotation punctuation">&#64;Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sayHello</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;Hello 好好学习&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+		<p>测试程序&#xff1a;</p>
+		<pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span
+				class="token class-name">Test1</span> <span class="token punctuation">{<!-- --></span>
+
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span
+					class="token keyword">void</span> <span class="token function">main</span><span
+					class="token punctuation">(</span>String<span class="token punctuation">[</span><span
+					class="token punctuation">]</span> args<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		Test1 demo <span class="token operator">&#61;</span> <span class="token keyword">new</span> <span
+					class="token class-name">Test1</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span><span class="token punctuation">;</span>
+		MyInterface1Impl myInterface1Impl <span class="token operator">&#61;</span> <span
+					class="token keyword">new</span> <span class="token class-name">MyInterface1Impl</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		myInterface1Impl<span class="token punctuation">.</span><span class="token function">sayHello</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		demo<span class="token punctuation">.</span><span class="token function">test</span><span
+					class="token punctuation">(</span>myInterface1Impl<span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;---------&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+		<span class="token comment">// 下面括号里new开始到});就是一个对象</span>
+		demo<span class="token punctuation">.</span><span class="token function">test</span><span
+					class="token punctuation">(</span><span class="token keyword">new</span> <span
+					class="token class-name">MyInterface1</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+
+			<span class="token annotation punctuation">&#64;Override</span>
+			<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">sayHello</span><span class="token punctuation">(</span><span
+					class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+				System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+					class="token function">println</span><span class="token punctuation">(</span><span
+					class="token string">&#34;大家好&#34;</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+					class="token function">test</span><span
+					class="token punctuation">(</span>MyInterface1 myinterface1<span class="token punctuation">)</span> <span
+					class="token punctuation">{<!-- --></span>
+		myinterface1<span class="token punctuation">.</span><span class="token function">sayHello</span><span
+					class="token punctuation">(</span><span class="token punctuation">)</span><span
+					class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+		<p>运行结果&#xff1a;<br/>
+			<img src="https://img-blog.csdnimg.cn/20210228115150528.png" alt="在这里插入图片描述"/></p>
+	</div>
+	<link
+			href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-d7a94ec6ab.css"
+			rel="stylesheet">
+	<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-a0c38f4093.css"
+		  rel="stylesheet">
 </div>
+
 </body>
 
 
