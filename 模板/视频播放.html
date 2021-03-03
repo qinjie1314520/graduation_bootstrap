@@ -1,0 +1,22 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>capture screen</title>
+	<script  src="../js/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<video id="video" controls="controls" autoplay>
+	<source src="https://mediacdn.thecover.cn/video/20210303/v_8126622aefdff3a38bb49e53f9b35258.mp4">
+</video>
+<script>
+	$(function () {
+		$('audio,video').each(function(){
+			$(this).data('muted',true);
+		});
+	})
+</body>
+</html>

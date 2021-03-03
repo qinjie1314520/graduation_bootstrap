@@ -5,6 +5,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer" />
     <title>异清轩博客</title>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/nprogress.css">
@@ -37,10 +38,10 @@
             postHttpAsync(address_of_the_interface.url_base + address_of_the_interface.url_project_article.base + address_of_the_interface.url_project_article.url_updBlogCollect
                 , {id: $item[0].getAttribute("value")}, function (resData) {
                     swalInfoAutoClose(resData, 1200);
-                    if($item.hasClass('glyphicon-star')){
+                    if ($item.hasClass('glyphicon-star')) {
                         $item.removeClass('glyphicon-star');
                         $item.addClass("glyphicon-star-empty");
-                    }else{
+                    } else {
                         $item.removeClass('glyphicon-star-empty');
                         $item.addClass("glyphicon-star");
                     }
@@ -64,7 +65,7 @@
             var html = template("templateId", obj);
             $('#article').html(html);
             if (isFirst) {
-                setBootstrapPaginator($('#paging'), resdatas.pageNum,  Math.ceil(resdatas.total * 1.0 / resdatas.pageSize), resdatas.pageSize,selLatestArticleUrl,selLatestArticleDatas,selLatestArticleFun);
+                setBootstrapPaginator($('#paging'), resdatas.pageNum, Math.ceil(resdatas.total * 1.0 / resdatas.pageSize), resdatas.pageSize, selLatestArticleUrl, selLatestArticleDatas, selLatestArticleFun);
             }
         };
 
@@ -72,8 +73,11 @@
             selLatestArticleDatas.type = $(item)[0].getAttribute("value");
             selLatestArticleDatas.typeName = $(item).text();
             $('#article').html('');
+            selLatestArticleDatas.pageNum = 1;
+            selLatestArticleDatas.pageSize = 5;
             getPagingList(selLatestArticleUrl, selLatestArticleDatas, selLatestArticleFun, true);
         }
+
         $(function () {
             //头部初始哈
             $('#header').html(header.html + header.loginModel + header.registerModel);
@@ -88,12 +92,19 @@
                 , null, function (datas) {
                     let html = "";
                     datas.forEach((item, index, array) => {
-                        html = html + "<a value='"+item.value+"' onclick='typeAClick(this)'>" + item.name + "</a>"
+                        html = html + "<a class='active' value='" + item.value + "' onclick='typeAClick(this)'>" + item.name + "</a>"
                     });
                     $('#articleType').html("<a>" + html + "</a>");
 
-                    selLatestArticleDatas.type = datas[0].value;
-                    selLatestArticleDatas.typeName = datas[0].name;
+                    var type = getUrlParam("type");
+                    var typeName = getUrlParam("typeName");
+                    if (type != null && typeName != null) {
+                        selLatestArticleDatas.type = type;
+                        selLatestArticleDatas.typeName = typeName;
+                    } else {
+                        selLatestArticleDatas.type = datas[0].value;
+                        selLatestArticleDatas.typeName = datas[0].name;
+                    }
                     //最新文章
                     getPagingList(selLatestArticleUrl, selLatestArticleDatas, selLatestArticleFun, true);
                 });
@@ -106,7 +117,8 @@
 <body class="user-select">
 
 <script type="text/template" id="templateId">
-    <%for(var i=0;i<list.length;i++){%>
+    <%for(var i=0;i
+    <list.length;i++){%>
     <article class="excerpt excerpt-1">
         <a class="focus" href="ArticleDetails.html?id=<%=list[i].id%>" title="">
             <img class="thumb" data-original="images/excerpt.jpg" src="<%=list[i].imageUrl%>" alt=""></a>
@@ -117,7 +129,8 @@
             <time class="time"><i class="glyphicon glyphicon-time"></i> <%=list[i].time%></time>
             <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共 <%=list[i].viewingTimes%>人围观</span>
 
-                <a class="comment"><i value="<%=list[i].id%>" onclick="updCollectStatus(this)" class="glyphicon glyphicon-star-empty"></i></a>
+            <a class="comment"><i value="<%=list[i].id%>" onclick="updCollectStatus(this)"
+                                  class="glyphicon glyphicon-star-empty"></i></a>
         </p>
         <p class="note"><%=list[i].description%></p>
     </article>
@@ -166,7 +179,7 @@
             </article>
             <div class="title">
                 <h3>最新发布</h3>
-                <div class="more" id="articleType"  style="height:50px">
+                <div class="more" id="articleType" style="height:50px">
 
                 </div>
             </div>
