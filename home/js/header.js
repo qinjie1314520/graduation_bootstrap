@@ -42,7 +42,7 @@ const header = {
         "                <ul class=\"nav navbar-nav navbar-right\">\n" +
         "                    <form class=\"navbar-form\" >\n" +
         "                        <div class=\"input-group\">\n" +
-        "                            <input type=\"text\" name=\"keyword\" class=\"form-control\" placeholder=\"请输入关键字搜索文章\" maxlength=\"20\"\n" +
+        "                            <input type=\"text\" id=\"keyword\" class=\"form-control\" placeholder=\"请输入关键字搜索文章\" maxlength=\"20\"\n" +
         "                                   autocomplete=\"off\" style=\"width: 250px\">\n" +
         "                            <span class=\"input-group-btn\">\n" +
         "                      <button class=\"btn btn-default btn-search\" id=\"search\" type=\"button\">搜索</button>\n" +
@@ -114,6 +114,11 @@ const header = {
         "    </div>\n" +
         "</div>\n",
     init: function () {
+        const currentHref = window.location.href;
+        if(currentHref.endsWith("ArticleDetails.html") || currentHref.endsWith("ArticleDetails.html",currentHref.indexOf("?"))){
+            $('#search')[0].style.display="none";
+            $('#keyword')[0].style.display="none";
+        }
         $('#login').click(function () {
 
             //获得用户名
@@ -179,6 +184,22 @@ const header = {
             //设置登陆成功标签页的名称
             $('#loginSuccessUsername').text(userInfo.name);
             $('#loginSuccessProfile').attr("src",userInfo.profile);
-        })
+        });
+        $('#search').click(function () {
+            $('#article').html('');
+            var searchUrl = address_of_the_interface.url_base + address_of_the_interface.url_project_article.base + address_of_the_interface.url_project_article.url_search;
+            var searchDatas = {pageNum: 1, pageSize: 5, content: $('#keyword').val()};
+            var searchFun = function (resDatas, isFirst) {
+                var obj = {
+                    list: resDatas.list
+                };
+                var html = template("templateId", obj);
+                $('#article').html(html);
+                if (isFirst) {
+                    setBootstrapPaginator($('#paging'), resDatas.pageNum, Math.ceil(resDatas.total * 1.0 / resDatas.pageSize), resDatas.pageSize, searchUrl, searchDatas, searchFun);
+                }
+            };
+            getPagingList(searchUrl, searchDatas, searchFun, true);
+        });
     }
 };

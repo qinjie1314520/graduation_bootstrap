@@ -217,7 +217,8 @@ const address_of_the_interface = {
         url_selArticleTypePrograma: "/article/home/selArticleTypePrograma",
         url_selCollectList: "/article/collect/selCollectList",
         url_updBlogCollect: "/article/collect/updBlogCollect",
-        url_selHistoryBlogList: "/article/history/selHistoryBlogList"
+        url_selHistoryBlogList: "/article/history/selHistoryBlogList",
+        url_search: "/article/home/search"
 
     },
     url_project_admin: {

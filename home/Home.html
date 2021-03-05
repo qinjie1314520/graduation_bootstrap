@@ -59,8 +59,7 @@
             + address_of_the_interface.url_project_article.url_selLatestArticle;
         var selLatestArticleFun = function (resdatas, isFirst) {
             var obj = {
-                list: resdatas.list,
-                typeName: selLatestArticleDatas.typeName
+                list: resdatas.list
             };
             var html = template("templateId", obj);
             $('#article').html(html);
@@ -97,13 +96,10 @@
                     $('#articleType').html("<a>" + html + "</a>");
 
                     var type = getUrlParam("type");
-                    var typeName = getUrlParam("typeName");
                     if (type != null && typeName != null) {
                         selLatestArticleDatas.type = type;
-                        selLatestArticleDatas.typeName = typeName;
                     } else {
                         selLatestArticleDatas.type = datas[0].value;
-                        selLatestArticleDatas.typeName = datas[0].name;
                     }
                     //最新文章
                     getPagingList(selLatestArticleUrl, selLatestArticleDatas, selLatestArticleFun, true);
@@ -122,7 +118,7 @@
     <article class="excerpt excerpt-1">
         <a class="focus" href="ArticleDetails.html?id=<%=list[i].id%>" title="">
             <img class="thumb" data-original="images/excerpt.jpg" src="<%=list[i].imageUrl%>" alt=""></a>
-        <header><a class="cat"><%=typeName%><i></i></a>
+        <header><a class="cat"><%=list[i].type%><i></i></a>
             <h2><a href="ArticleDetails.html?id=<%=list[i].id%>" title=""><%=list[i].title%> </a></h2>
         </header>
         <p class="meta">
@@ -130,7 +126,7 @@
             <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共 <%=list[i].viewingTimes%>人围观</span>
 
             <a class="comment"><i value="<%=list[i].id%>" onclick="updCollectStatus(this)"
-                                  class="glyphicon glyphicon-star-empty"></i></a>
+                                  class="glyphicon <%=list[i].isCollect===0?'glyphicon-star-empty':'glyphicon-star'%>"></i></a>
         </p>
         <p class="note"><%=list[i].description%></p>
     </article>
