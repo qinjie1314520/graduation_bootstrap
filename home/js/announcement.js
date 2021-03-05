@@ -23,15 +23,6 @@ const announcement = {
         "            </div>\n" +
         "          </div>\n" +
         "        </div>\n" +
-        "        <div class=\"widget widget_search\">\n" +
-        "          <form class=\"navbar-form\" action=\"/Search\" method=\"post\">\n" +
-        "            <div class=\"input-group\">\n" +
-        "              <input type=\"text\" name=\"keyword\" class=\"form-control\" size=\"35\" placeholder=\"请输入关键字\" maxlength=\"15\" autocomplete=\"off\">\n" +
-        "              <span class=\"input-group-btn\">\n" +
-        "            <button class=\"btn btn-default btn-search\" name=\"search\" type=\"submit\">搜索</button>\n" +
-        "            </span> </div>\n" +
-        "          </form>\n" +
-        "        </div>\n" +
         "      </div>\n" +
         "      <div class=\"widget widget_sentence\">\n" +
         "        <h3 >每日一句</h3>\n" +
@@ -119,5 +110,7 @@ const announcement = {
                 "                        </p>\n" +
                 "                      </div>");
         })
+
+
     }
 };

@@ -1,58 +1,57 @@
 const header = {
     html:"<header class=\"header\">\n" +
-        "  <nav class=\"navbar navbar-default\" id=\"navbar\">\n" +
-        "    <div class=\"container\">\n" +
-        "      <div class=\"header-topbar hidden-xs link-border\">\n" +
-        "        <ul class=\"site-nav topmenu\">\n" +
-        "          <li><a href=\"tags.html\">标签云</a></li>\n" +
-        "          <li><a href=\"readers.html\" rel=\"nofollow\">读者墙</a></li>\n" +
-        "          <li><a href=\"links.html\" rel=\"nofollow\">友情链接</a></li>\n" +
-        "          <li class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\"\n" +
-        "                                  aria-haspopup=\"true\" aria-expanded=\"false\" rel=\"nofollow\">关注本站 <span\n" +
-        "                  class=\"caret\"></span></a>\n" +
-        "            <ul class=\"dropdown-menu header-topbar-dropdown-menu\">\n" +
-        "              <li><a data-toggle=\"modal\" data-target=\"#WeChat\" rel=\"nofollow\"><i class=\"fa fa-weixin\"></i>\n" +
-        "                微信</a></li>\n" +
-        "              <li><a href=\"#\" rel=\"nofollow\"><i class=\"fa fa-weibo\"></i> 微博</a></li>\n" +
-        "              <li><a data-toggle=\"modal\" data-target=\"#areDeveloping\" rel=\"nofollow\"><i\n" +
-        "                      class=\"fa fa-rss\"></i> RSS</a></li>\n" +
-        "            </ul>\n" +
-        "          </li>\n" +
-        "        </ul>\n" +
-        "        <div id=\"loginDiv\">\n" +
-        "          <a data-toggle=\"modal\" data-target=\"#loginModal\" class=\"login\" rel=\"nofollow\">Hi,请登录</a>&nbsp;&nbsp;\n" +
-        "          <a href=\"javascript:;\" class=\"register\" rel=\"nofollow\" data-toggle=\"modal\"\n" +
-        "             data-target=\"#registerModal\">我要注册</a>\n" +
-        "          <a href=\"\" rel=\"nofollow\">找回密码</a>\n" +
-        "        </div>\n" +
-        "        <div id=\"loginSuccessDiv\" style=\"display:none\">\n" +
-        "<img alt=\"test\" src=\"../images/weixin.jpg\" id='loginSuccessProfile' class=\"img-circle\" style=\"vertical-align:middle;width:30px; height:30px;\">\n" +
+        "    <nav class=\"navbar navbar-default\" id=\"navbar\">\n" +
+        "        <div class=\"container\">\n" +
+        "            <div class=\"header-topbar hidden-xs link-border\">\n" +
+        "                <ul  class=\"site-nav topmenu\">\n" +
+        "                    <li><a href=\"tags.html\">标签云</a></li>\n" +
+        "                    <li><a href=\"readers.html\" rel=\"nofollow\">读者墙</a></li>\n" +
+        "                    <li><a href=\"links.html\" rel=\"nofollow\">友情链接</a></li>\n" +
+        "                    <li class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\"\n" +
+        "                                            aria-haspopup=\"true\" aria-expanded=\"false\" rel=\"nofollow\">关注本站 <span\n" +
+        "                            class=\"caret\"></span></a>\n" +
+        "                        <ul class=\"dropdown-menu header-topbar-dropdown-menu\">\n" +
+        "                            <li><a data-toggle=\"modal\" data-target=\"#WeChat\" rel=\"nofollow\"><i class=\"fa fa-weixin\"></i>\n" +
+        "                                微信</a></li>\n" +
+        "                            <li><a href=\"#\" rel=\"nofollow\"><i class=\"fa fa-weibo\"></i> 微博</a></li>\n" +
+        "                            <li><a data-toggle=\"modal\" data-target=\"#areDeveloping\" rel=\"nofollow\"><i\n" +
+        "                                    class=\"fa fa-rss\"></i> RSS</a></li>\n" +
+        "                        </ul>\n" +
+        "                    </li>\n" +
+        "                </ul>\n" +
+        "                <div id=\"loginDiv\">\n" +
+        "                                        <a data-toggle=\"modal\" data-target=\"#loginModal\" class=\"login\" rel=\"nofollow\">Hi,请登录</a>&nbsp;&nbsp;\n" +
+        "                                        <a href=\"javascript:;\" class=\"register\" rel=\"nofollow\" data-toggle=\"modal\"\n" +
+        "                                           data-target=\"#registerModal\">我要注册</a>\n" +
+        "                                        <a href=\"\" rel=\"nofollow\">找回密码</a>\n" +
+        "                </div>\n" +
+        "                <div id=\"loginSuccessDiv\" style=\"display:none\">\n" +
+        "                  <img alt=\"test\" src=\"../images/weixin.jpg\" class=\"img-circle\" style=\"vertical-align:middle;width:30px; height:30px;\">\n" +
         "                  <a href=\"\" rel=\"nofollow\" id=\"loginSuccessUsername\">欢迎登陆：roger</a>\n" +
-        "                  <a href=\"\" rel=\"nofollow\" id=\"loginSuccessLogout\">退出</a>"+
-        "        </div>\n" +
+        "                  <a href=\"\" rel=\"nofollow\" id=\"loginSuccessLogout\">退出</a>\n" +
+        "                </div>\n" +
         "\n" +
-        "      </div>\n" +
-        "      <div class=\"navbar-header\">\n" +
-        "        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n" +
-        "                data-target=\"#header-navbar\" aria-expanded=\"false\"><span class=\"sr-only\"></span> <span\n" +
-        "                class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span></button>\n" +
-        "        <h1 class=\"logo hvr-bounce-in\"><a href='Home.html' title=\"\"><img src=\"../images/logoko.png\" alt=\"\"></a></h1>\n" +
-        "      </div>\n" +
-        "      <div class=\"collapse navbar-collapse\" id=\"header-navbar\">\n" +
-        "        <ul class=\"nav navbar-nav navbar-right\">\n" +
-        "          <li class=\"hidden-index active\"><a data-cont=\"roger首页\" href=\"index.html\">roger首页</a></li>\n" +
-        "        </ul>\n" +
-        "        <form class=\"navbar-form visible-xs\" action=\"/Search\" method=\"post\">\n" +
-        "          <div class=\"input-group\">\n" +
-        "            <input type=\"text\" name=\"keyword\" class=\"form-control\" placeholder=\"请输入关键字\" maxlength=\"20\"\n" +
-        "                   autocomplete=\"off\">\n" +
-        "            <span class=\"input-group-btn\">\n" +
-        "            <button class=\"btn btn-default btn-search\" name=\"search\" type=\"submit\">搜索</button>\n" +
-        "            </span></div>\n" +
-        "        </form>\n" +
-        "      </div>\n" +
-        "    </div>\n" +
-        "  </nav>\n" +
+        "            </div>\n" +
+        "            <div class=\"navbar-header\">\n" +
+        "                <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n" +
+        "                        data-target=\"#header-navbar\" aria-expanded=\"false\"><span class=\"sr-only\"></span> <span\n" +
+        "                        class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span></button>\n" +
+        "                <h1 class=\"logo hvr-bounce-in\"><a href=\"Home.html\" title=\"\"><img src=\"../images/logo.png\" alt=\"\"></a></h1>\n" +
+        "            </div>\n" +
+        "            <div class=\"collapse navbar-collapse\" id=\"header-navbar\">\n" +
+        "                <ul class=\"nav navbar-nav navbar-right\">\n" +
+        "                    <form class=\"navbar-form\" >\n" +
+        "                        <div class=\"input-group\">\n" +
+        "                            <input type=\"text\" name=\"keyword\" class=\"form-control\" placeholder=\"请输入关键字搜索文章\" maxlength=\"20\"\n" +
+        "                                   autocomplete=\"off\" style=\"width: 250px\">\n" +
+        "                            <span class=\"input-group-btn\">\n" +
+        "                      <button class=\"btn btn-default btn-search\" id=\"search\" type=\"button\">搜索</button>\n" +
+        "                      </span></div>\n" +
+        "                    </form>\n" +
+        "                </ul>\n" +
+        "            </div>\n" +
+        "        </div>\n" +
+        "    </nav>\n" +
         "</header>",
     loginModel:
         "<div class=\"modal fade user-select\" id=\"loginModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"loginModalLabel\">\n" +

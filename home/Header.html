@@ -15,13 +15,21 @@
     <script src="../js/jquery-2.1.4.min.js"></script>
     <script src="../js/jquery.lazyload.min.js"></script>
 
+    <script src="../js/global_param.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/announcement.js"></script>
+    <script>
+        $(function () {
+
+        })
+    </script>
 </head>
 <header class="header">
-    <button class="btn btn-danger" id="test">test</button>
     <nav class="navbar navbar-default" id="navbar">
         <div class="container">
             <div class="header-topbar hidden-xs link-border">
-                <ul class="site-nav topmenu">
+                <ul  class="site-nav topmenu">
                     <li><a href="tags.html">标签云</a></li>
                     <li><a href="readers.html" rel="nofollow">读者墙</a></li>
                     <li><a href="links.html" rel="nofollow">友情链接</a></li>
@@ -54,20 +62,19 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#header-navbar" aria-expanded="false"><span class="sr-only"></span> <span
                         class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
-                <h1 class="logo hvr-bounce-in"><a href="" title=""><img src="../images/logo.png" alt=""></a></h1>
+                <h1 class="logo hvr-bounce-in"><a href="Home.html" title=""><img src="../images/logo.png" alt=""></a></h1>
             </div>
             <div class="collapse navbar-collapse" id="header-navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden-index active"><a data-cont="异清轩首页" href="index.html">roger首页</a></li>
-                </ul>
-                <form class="navbar-form visible-xs" action="/Search" method="post">
-                    <div class="input-group">
-                        <input type="text" name="keyword" class="form-control" placeholder="请输入关键字" maxlength="20"
-                               autocomplete="off">
-                        <span class="input-group-btn">
-                      <button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+                    <form class="navbar-form" >
+                        <div class="input-group">
+                            <input type="text" name="keyword" class="form-control" placeholder="请输入关键字搜索文章" maxlength="20"
+                                   autocomplete="off" style="width: 250px">
+                            <span class="input-group-btn">
+                      <button class="btn btn-default btn-search" id="search" type="button">搜索</button>
                       </span></div>
-                </form>
+                    </form>
+                </ul>
             </div>
         </div>
     </nav>

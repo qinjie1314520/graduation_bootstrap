@@ -48,7 +48,8 @@
         }
     }
 
-    var qiniuToken = "wytNNbpW3l-EjoG3tI43MKEpqkhjtDX7diwR9B8C:Vw8TzEaFihN7rtXvhQEfATxYqIA=:eyJzY29wZSI6ImRhdGEtbWVkaWEiLCJkZWFkbGluZSI6MTYxNDY2NzMzMH0="
+    var qiniuToken = "wytNNbpW3l-EjoG3tI43MKEpqkhjtDX7diwR9B8C:MJJscKAEyPdtj-BNVSBkGAjMDWE=:eyJzY29wZSI6ImRhdGEtbWVkaWEiLCJkZWFkbGluZSI6MTYxNDg0MDE3NX0=";
+
 
     // 七牛token
     $("#upload").click(function () {
@@ -70,7 +71,9 @@
             //上传过程的监听函数 result参数带有total字段的 object，包含loaded、total、percent三个属性)
             next(result) {
                 // 实现上传进度条 ...
-                console.log(result)
+                console.log(subscription);
+                subscription.unsubscribe();
+                console.log(subscription)
             },
             //上传失败回调
             error(err) {
@@ -97,7 +100,9 @@
         var subscription = observable.subscribe(observer);
         // 取消上传
         $("#unUpload").click(function () {
+            console.log(subscription)
             subscription.unsubscribe();
+            console.log(subscription)
         })
     })
 </script>

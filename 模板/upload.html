@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>qiniu jssdk|上传测试</title>
+    <!--  <script src="./qiniu.min.js" charset="utf-8">
+     </script> -->
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qiniu-js/3.1.2/qiniu.min.js"
+            charset="utf-8"></script>
+    <!-- <script src="./jquery.min.js" charset="utf-8"></script> -->
+
+    <script type="text/javascript">
+
+        // function isContainFileMimeType(fileType, mimeType){
+        //  return mimeType.find((elem) => {
+        //       return fileType == elem;
+        //   });
+        // }
+
+        $(function () {
+            $('#upload').click(function () {
+
+                var file = $("#upFile")[0].files[0];
+                //alert(filePath);
+                if (file == '' && file == undefined) {
+                    return;
+                }
+                // var putExtra = {
+                //   fname: "",
+                //   params: {},
+                //   mimeType: ["image/png","video/mp4","image/jpg"]
+                // };
+                // var fileType = "ideo/mp4";
+                // var hello = isContainFileMimeType(fileType,putExtra.mimeType);
+                // alert(hello);
+
+
+                var token = "wytNNbpW3l-EjoG3tI43MKEpqkhjtDX7diwR9B8C:MJJscKAEyPdtj-BNVSBkGAjMDWE=:eyJzY29wZSI6ImRhdGEtbWVkaWEiLCJkZWFkbGluZSI6MTYxNDg0MDE3NX0=";
+                var fileName = $("#fileName").val();
+
+                var observable = qiniu.upload(file, "qiniu-test" + fileName + "(" + new Date().getTime() + ")", token, null, null);
+                subscription = observable.subscribe(next, error, complete);
+
+                function next(res) {
+
+                    $("#connectUrl").html("<span>上传进度：" + res.total.percent + "%</span>");
+                    console.log(subscription)
+                    subscription.unsubscribe();
+                    console.log(subscription)
+                }
+
+                function error(err) {
+                    alert(err.message);
+                    $("#connectUrl").html("<span>发生错误：" + err.message + "</span>");
+                }
+
+                function complete(res) {
+
+                    //alert("上传完成"+res.key);
+                    $("#connectUrl").html("<span>上传完成，</span><a href='http://q8xagae9t.bkt.clouddn.com/" + res.key + "'>点击访问</a>&nbsp&nbsp&nbsp链接&nbsphttp://q8xagae9t.bkt.clouddn.com/" + res.key);
+                    //alert('complete');
+                }
+            });
+        })
+        var subscription = null;
+
+        function uploadFile() {
+            //var token = '';
+
+        }
+    </script>
+</head>
+
+<body>
+<p>请输入文件名 <input type="text" style="width:120px" id="fileName"></input></p>
+<p><input type="file" name='upFile' id="upFile"></input></br>
+<p>
+<p><input type="button" name="开始上传" id="upload" value="开始上传" onclick='uploadFile()'></br>
+    <span id="connectUrl"></span>
+<P>
+    <button id="canal">取消</button>
+</body>
+
+</html>
