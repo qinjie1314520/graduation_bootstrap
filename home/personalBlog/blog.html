@@ -44,8 +44,11 @@
                 var html = template("templateId", obj);
                 $('#article').html(html);
                 if (isFirst) {
-                    setBootstrapPaginator($('#paging'), 1,
-                        Math.ceil(resdatas.total * 1.0 / resdatas.pageSize), resdatas.pageSize, url, datas, fun);
+                    var totalPages = Math.ceil(resdatas.total * 1.0 / resdatas.pageSize);
+                    if (totalPages != 0) {
+                        setBootstrapPaginator($('#paging'), 1,
+                            totalPages, resdatas.pageSize, url, datas, fun);
+                    }
                 }
             };
             getPagingList(url, datas, fun, true);
@@ -53,10 +56,12 @@
 
         function editBlogClickFunctin(own) {
             const id = $(own).attr("value_id");
-            window.open("richtext.html?scene=blog_to_richtext&id=" + id);
-            localStorage.setItem("blog_to_richtext", datas.article.content);
+            window.open("richtext.html?scene=blog_to_richtext_edit&id=" + id);
+            localStorage.setItem("blog_to_richtext_edit", datas.article.content);
         };
-
+        function insertBlogClickFunctin() {
+            window.open("richtext.html?scene=blog_to_richtext_insert");
+        };
         function deleteBlogClickFunctin(own) {
             swalWarningConfirmAndCancel("您想要删除？", "您将会删除本博客的全部信息！", function () {
                 $.ajax({
@@ -139,6 +144,7 @@
     <div class="title">
         <p>博客管理</p>
         <p class="en">Extracurricular Life</p>
+        <button class="btn-default btn center-block" onclick="insertBlogClickFunctin();">新增</button>
     </div>
 </div>
 <!-- main部分 -->

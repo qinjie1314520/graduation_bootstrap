@@ -196,7 +196,9 @@ const address_of_the_interface = {
     url_base: "http://localhost:30004",
     url_project_authority: {
         base: "/graduation-project-roger-authority",
-        url_login: "/authority/login"
+        url_login: "/authority/login",
+        url_register: "/authority/register",
+        url_selRegisterCode: "/authority/selRegisterCode"
     },
     url_project_article: {
         base: "/graduation-project-roger-article",

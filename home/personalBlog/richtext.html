@@ -7,6 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>异清轩博客</title>
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../../css/csdn/detail_enter-abc53f1aad.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/csdn/skin-ink-a11cfdaac3.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/csdn/sandalstrap.min.css">
+    <link rel="stylesheet" href="../../css/csdn/blog_code-01256533b5.min.css">
+    <link rel="stylesheet" href="../../css/csdn/chart-3456820cac.css"/>
+    <link rel="stylesheet" href="../../css/csdn/ck_htmledit_views-b5506197d8.css">
+    <link href="../../css/csdn/markdown_views-d7a94ec6ab.css" rel="stylesheet">
+    <link href="../../css/csdn/style-a0c38f4093.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/csdn/atom-one-light.css">
+
     <script src="../../js/jquery-3.5.1.min.js"></script>
     <script src="../../js/jquery.cookie.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
@@ -19,15 +30,6 @@
     <link rel="stylesheet" href="../../css/bootstrap-select.min.css">
     <script src="../../js/bootstrap-select.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../css/csdn/detail_enter-abc53f1aad.min.css">
-    <link rel="stylesheet" type="text/css" href="../../css/csdn/skin-ink-a11cfdaac3.min.css">
-    <link rel="stylesheet" type="text/css" href="../../css/csdn/sandalstrap.min.css">
-    <link rel="stylesheet" href="../../css/csdn/blog_code-01256533b5.min.css">
-    <link rel="stylesheet" href="../../css/csdn/chart-3456820cac.css"/>
-    <link rel="stylesheet" href="../../css/csdn/ck_htmledit_views-b5506197d8.css">
-    <link href="../../css/csdn/markdown_views-d7a94ec6ab.css" rel="stylesheet">
-    <link href="../../css/csdn/style-a0c38f4093.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/csdn/atom-one-light.css">
 
     <script>
         function init(scene) {
@@ -50,7 +52,10 @@
                                         swalInfoAutoClose("保存成功！", 1200);
                                     });
                                 break;
-                            case "blog_to_richtext":
+                            case "blog_to_richtext_edit":
+                                $('#titleEdia').modal('toggle');
+                                break;
+                            case "blog_to_richtext_insert":
                                 $('#titleEdia').modal('toggle');
                                 break;
                             default:
@@ -111,7 +116,7 @@
                     $('#summernoteHtml').html(localStorage.getItem(scene));
                     $('#summernote').summernote('code', localStorage.getItem(scene));
                     break;
-                case "blog_to_richtext":
+                case "blog_to_richtext_edit":
                     //类型数据
                     getHttp(address_of_the_interface.url_base
                         + address_of_the_interface.url_project_article.base
@@ -182,7 +187,63 @@
                                 , programa: programa
                             }
                             , function (datas) {
+                                swalInfoAutoClose("保存成功！", 1000);
                                 $('#titleEdia').modal('toggle');
+                            })
+                    });
+                    break;
+                case "blog_to_richtext_insert":
+                    //类型数据
+                    getHttp(address_of_the_interface.url_base
+                        + address_of_the_interface.url_project_article.base
+                        + address_of_the_interface.url_project_article.url_selArticleTypePrograma
+                        , null, function (datas) {
+                            var $programa = $("#programa");
+                            var $type = $("#type");
+                            var programaHtml = '';
+                            datas.forEach(function (item, index) {
+                                var typeHtml = "";
+                                programaHtml += "<option value='" + item.value + "'>" + item.name + "</option>";
+                                item.children.forEach(function (child) {
+                                    typeHtml += "<option value='" + child.value + "'>" + child.name + "</option>";
+                                });
+                                typeDatas.set("" + item.value, typeHtml);
+                            });
+                            $programa.html(programaHtml);
+                            $programa.selectpicker("refresh");
+                            $programa.change(function () {
+                                const html = typeDatas.get($programa.val());
+                                $type.html(html);
+                                $type.selectpicker("refresh");
+                            });
+                        });
+
+                    //确定绑定响应函数
+                    $('#editSubmit').click(function () {
+                        var type = [];
+                        var programa = ($('#programa option:selected').val());
+                        $("#type option:selected").each(function () {
+                            type.push($(this).val());
+                        });
+                        putHttp(address_of_the_interface.url_base
+                            + address_of_the_interface.url_project_article.base
+                            + address_of_the_interface.url_project_article.url_insPersonBlog
+                            , {
+                                content: $('#summernote').summernote('code')
+                                , title: $('#titleText').val()
+                                , description: $('#description').val()
+                                , coverImage: $('#coverImage').val()
+                                , type: type
+                                , programa: programa
+                            }
+                            , function (datas) {
+                                swalInfoAutoClose("添加成功！", 1000);
+                                $('#titleEdia').modal('toggle');
+                                if (parent != null) {
+                                    window.parent.opener.location.reload();
+                                    window.close();
+                                }
+
                             })
                     });
                     break;

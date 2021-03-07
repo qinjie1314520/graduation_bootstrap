@@ -23,7 +23,7 @@
     <script src="../../plugins/swal/sweetalert2.all.min.js"></script>
 
     <script>
-        var collectData = {pageNum: 1, pageSize: 4};
+        var collectData = {pageNum: 1, pageSize: 10};
         var collectUrl = address_of_the_interface.url_base + address_of_the_interface.url_project_article.base + address_of_the_interface.url_project_article.url_selCollectList;
         var collectFun = function (resDatas, isFirst) {
             var html = "";
@@ -53,7 +53,7 @@
                 setBootstrapPaginator($('#paging'), 1, getTotalPage(resDatas.pageSize, resDatas.total),resDatas.pageSize, collectUrl, collectData, collectFun);
             }
         };
-        var historyData = {pageNum: 1, pageSize: 4};
+        var historyData = {pageNum: 1, pageSize: 10};
         var historyUrl = address_of_the_interface.url_base + address_of_the_interface.url_project_article.base + address_of_the_interface.url_project_article.url_selHistoryBlogList;
         var historyFun = function (resDatas, isFirst) {
             var html = "";
@@ -114,6 +114,10 @@
                     "                <li class=\"list-group-item\">性别：" + userInfo.gender + "</li>\n" +
                     "                <li class=\"list-group-item\">电话：" + userInfo.phone + "</li>\n" +
                     "                <li class=\"list-group-item\">邮箱：" + userInfo.email + "</li>");
+
+                $('#name').text(userInfo.name);
+                $('#image').attr("src",userInfo.profile);
+
                 $('#username').val(userInfo.name);
                 $('#gender').val(userInfo.gender);
                 $('#profile').val(userInfo.profile);
@@ -166,8 +170,8 @@
     <div class="title">
         <img src="../../images/weixin.jpg"
              style="width:80px; height:80px; display:block;margin-right:auto;margin-left:auto;border-radius:50%"
-             id="images"/>
-        <p>roger</p>
+             id="image"/>
+        <p id="name">roger</p>
         <br>
         <button class="btn btn-info center-block" data-toggle="modal" data-target="#editInfo" class="login"
                 rel="nofollow">编辑个人信息
@@ -261,7 +265,7 @@
                     <div class="form-group">
                         <label for="profile">头像地址</label>
                         <input type="text" class="form-control" id="profile" placeholder="请输入头像地址" autofocus
-                               maxlength="15" autocomplete="off" required>
+                               autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="username">用户名</label>

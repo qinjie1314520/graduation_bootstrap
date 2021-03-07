@@ -30,7 +30,7 @@
     <script src="../js/jquery.cookie.js"></script>
     <script src="../js/nprogress.js"></script>
     <script src="../js/jquery.lazyload.min.js"></script>
-
+    <script src="../js/countDown.js"></script>
     <script type="text/javascript" src="../js/bootstrap-paginator.js"></script>
     <script type="text/javascript" src="../js/sweetalert2.all.min.js"></script>
 
@@ -91,6 +91,16 @@
                     tags += "<a href=\"\" rel=\"tag\">" + item.name + "</a>";
                 });
                 $('#tags').html(tags);
+                //相似文章
+                getHttp(address_of_the_interface.url_base+address_of_the_interface.url_project_article.base+
+                    address_of_the_interface.url_project_article.url_search,
+                    {pageNum:1,pageSize:5,content: datas.article.title},function(resDatas){
+                        var html = '';
+                        resDatas.list.forEach(function (item) {
+                            html += "<li><a href='ArticleDetails.html?id=" + item.id + "'>" + item.title + "</a></li>";
+                        });
+                        $('#similarArticles').html(html);
+                })
             });
 
             //评论
@@ -128,7 +138,6 @@
                 headers: {
                     Authorization: $.cookie(common.token)
                 },
-                data: {id: blogId},
                 success: function (res) {
                     if (res.code == 200) {
                         var html = '';
@@ -144,6 +153,7 @@
                     console.log(e);
                 }
             });
+
             //评论的响应函数
             $('#comment-submit').click(function () {
                 putHttp(address_of_the_interface.url_base
@@ -177,6 +187,14 @@
             </article>
 
             <div class="article-tags" id="tags"></div>
+            <div class="relates">
+                <div class="title">
+                    <h3>相似文章</h3>
+                </div>
+                <ul id="similarArticles">
+
+                </ul>
+            </div>
             <div class="relates">
                 <div class="title">
                     <h3>相关推荐</h3>

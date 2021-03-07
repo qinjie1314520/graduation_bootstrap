@@ -85,34 +85,50 @@ const header = {
         "</div>",
     registerModel:
     "<div class=\"modal fade user-select\" id=\"registerModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"registerModalLabel\">\n" +
-        "    <div class=\"modal-dialog\" role=\"document\">\n" +
-        "        <div class=\"modal-content\">\n" +
-        "            <form action=\"/Admin/Index/login\" method=\"post\">\n" +
-        "                <div class=\"modal-header\">\n" +
-        "                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span\n" +
-        "                            aria-hidden=\"true\">&times;</span></button>\n" +
-        "                    <h4 class=\"modal-title\">注册</h4>\n" +
-        "                </div>\n" +
-        "                <div class=\"modal-body\">\n" +
-        "                    <div class=\"form-group\">\n" +
-        "                        <label for=\"loginModalUserNmae\">用户名</label>\n" +
-        "                        <input type=\"text\" class=\"form-control\" id=\"registerModalUserNmae\" placeholder=\"请输入用户名\"\n" +
-        "                               autofocus maxlength=\"15\" autocomplete=\"off\" required>\n" +
+        "        <div class=\"modal-dialog\" role=\"document\">\n" +
+        "            <div class=\"modal-content\">\n" +
+        "                <form>\n" +
+        "                    <div class=\"modal-header\">\n" +
+        "                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span\n" +
+        "                                aria-hidden=\"true\">&times;</span></button>\n" +
+        "                        <h4 class=\"modal-title\" id=\"registerModalLabel\">注册</h4>\n" +
         "                    </div>\n" +
-        "                    <div class=\"form-group\">\n" +
-        "                        <label for=\"loginModalUserPwd\">密码</label>\n" +
-        "                        <input type=\"password\" class=\"form-control\" id=\"registerModalUserPwd\" placeholder=\"请输入密码\"\n" +
-        "                               maxlength=\"18\" autocomplete=\"off\" required>\n" +
+        "                    <div class=\"modal-body\">\n" +
+        "                        <div class=\"form-group\">\n" +
+        "                            <label for=\"loginModalUserNmae\">用户名</label>\n" +
+        "                            <input type=\"text\" class=\"form-control\" id=\"registerModalUserNmae\" placeholder=\"请输入用户名\" autofocus\n" +
+        "                                   maxlength=\"15\" autocomplete=\"off\" required>\n" +
+        "                        </div>\n" +
+        "                        <div class=\"form-group\">\n" +
+        "                            <label for=\"registerModalPassword\">密码</label>\n" +
+        "                            <input type=\"password\" class=\"form-control\" id=\"registerModalPassword\" placeholder=\"请输入密码\"\n" +
+        "                                   maxlength=\"18\" autocomplete=\"off\" required>\n" +
+        "                        </div>\n" +
+        "                        <div class=\"form-group\">\n" +
+        "                            <label for=\"registerModalRePassword\">密码</label>\n" +
+        "                            <input type=\"password\" class=\"form-control\" id=\"registerModalRePassword\" placeholder=\"再次输入密码\"\n" +
+        "                                   maxlength=\"18\" autocomplete=\"off\" required>\n" +
+        "                        </div>\n" +
+        "                        <div class=\"form-group\">\n" +
+        "                            <label for=\"registerModalEmail\">邮箱</label>\n" +
+        "                            <input type=\"email\" class=\"form-control\" id=\"registerModalEmail\" placeholder=\"请输入邮箱\"\n" +
+        "                                   maxlength=\"18\" autocomplete=\"off\" required>\n" +
+        "                            <input id=\"btnSendCode\" type=\"button\" class=\"form-control btn btn-info\" value=\"获取验证码\" />\n" +
+        "                        </div>\n" +
+        "                        <div class=\"form-group\">\n" +
+        "                            <label for=\"registerModalEmailCode\">验证码</label>\n" +
+        "                            <input type=\"number\" class=\"form-control\" id=\"registerModalEmailCode\" placeholder=\"请输入邮箱验证码\"\n" +
+        "                                   maxlength=\"18\" autocomplete=\"off\" required>\n" +
+        "                        </div>\n" +
         "                    </div>\n" +
-        "                </div>\n" +
-        "                <div class=\"modal-footer\">\n" +
-        "                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">取消</button>\n" +
-        "                    <button type=\"button\" id=\"register\" class=\"btn btn-primary\">注册</button>\n" +
-        "                </div>\n" +
-        "            </form>\n" +
+        "                    <div class=\"modal-footer\">\n" +
+        "                        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">取消</button>\n" +
+        "                        <button type=\"button\" class=\"btn btn-primary\" id=\"register\">注册</button>\n" +
+        "                    </div>\n" +
+        "                </form>\n" +
+        "            </div>\n" +
         "        </div>\n" +
-        "    </div>\n" +
-        "</div>\n",
+        "    </div>\n",
     init: function () {
         const currentHref = window.location.href;
         if(currentHref.endsWith("ArticleDetails.html") || currentHref.endsWith("ArticleDetails.html",currentHref.indexOf("?"))){
@@ -170,12 +186,6 @@ const header = {
                 expires: -1
             });
         });
-        $('#register').click(function () {
-            //获得用户名
-            let username = $('#registerModalUserNmae').val();
-            let password = $('#registerModalUserPwd').val();
-            Swal(username+""+password);
-        });
         getUserInfo(function (userInfo) {
             //隐藏登陆标签
             $("#loginDiv").hide();
@@ -201,5 +211,45 @@ const header = {
             };
             getPagingList(searchUrl, searchDatas, searchFun, true);
         });
+        $('#register').click(function () {
+            var username = $('#registerModalUserNmae').val();
+            var pass = $('#registerModalPassword').val();
+            var repass = $('#registerModalRePassword').val();
+            if(pass!=repass){
+                swalInfoAutoClose("两次密码输入不一致！", 1000);
+                return;
+            }
+            var email = $('#registerModalEmail').val();
+            var code = $('#registerModalEmailCode').val();
+            if(email == '' || code==''){
+                swalInfoAutoClose("邮箱，邮箱验证码不能为空！", 1000);
+            }
+            putHttp(address_of_the_interface.url_base+
+                address_of_the_interface.url_project_authority.base+
+                address_of_the_interface.url_project_authority.url_register,
+                {
+                    username:username,
+                    password:pass,
+                    email:email,
+                    code:code
+                },function (datas) {
+                    swalInfoAutoClose("注册成功，账户名即为用户名", 1200);
+                    $('#registerModal').modal('hide');
+                })
+        });
+        $('#btnSendCode').click(function () {
+            var email = $('#registerModalEmail').val();
+            if(email.length==0){
+                swalInfoAutoClose("邮箱不能为空！",1200)
+                return;
+            }
+            sendMessage(this);
+            getHttp(address_of_the_interface.url_base+address_of_the_interface.url_project_authority.base+
+                address_of_the_interface.url_project_authority.url_selRegisterCode,{
+                email:email
+            },function (datas) {
+                swalInfoAutoClose("发送成功!", 1000);
+            })
+        })
     }
 };
